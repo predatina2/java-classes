@@ -3,15 +3,22 @@ package com.hadlak.house;
 public class Wall {
 
     private String material;
-    private String color;
+    private int paintedColor;
+    private String direction;
 
-    public Wall(String material, String color) {
+    public Wall(String material, int paintedColor, String direction) {
         this.material = material;
-        this.color = color;
+        this.paintedColor = paintedColor;
+        this.direction = direction;
+    }
+
+    public void paintWall(int color){
+        this.paintedColor = color;
+        System.out.println("Wall painted in " + color);
     }
 
     public void paintWall(String color){
-        this.color = color;
+        this.paintedColor = 10; // something to do here
         System.out.println("Wall painted in " + color);
     }
 
@@ -19,7 +26,11 @@ public class Wall {
         return material;
     }
 
-    public String getColor() {
-        return color;
+    public int getPaintedColor() {
+        return paintedColor;
+    }
+
+    public String getDirection() {
+        return direction;
     }
 }

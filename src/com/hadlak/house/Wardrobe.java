@@ -4,8 +4,8 @@ public class Wardrobe extends Furniture{
 
     private boolean isOpen;
 
-    public Wardrobe(String material) {
-        super("wardrobe", material);
+    public Wardrobe(String material, String style) {
+        super("wardrobe", material, style);
         this.isOpen = false;
     }
 

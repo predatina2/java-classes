@@ -29,6 +29,26 @@ public class Room {
 ////                + wardrobe.getMaterial());
 ////        System.out.println("Walls from " + wall.getMaterial()
 ////            + " in color " + wall.getColor());
+
+//        Room emptyRoom = new Room("empty room"
+//                //  , new Chair("wood", "classic")
+//                //  , new Table("metal", "classic")
+//                //  , new Wardrobe("wood", "romantic")
+//                , new Wall("stone", 1, "north")
+//                , new Wall("stone", 1, "east")
+//                , new Wall("stone", 1, "south")
+//                , new Wall("stone", 1, "west")
+//                , new Ceiling(12, 55)
+//        );
+//        emptyRoom.paintWalls("purple");
+//        // emptyRoom.getWardrobe().openWardrobe();
+//        Bedroom bedroom = new Bedroom(emptyRoom
+//                , new Bed("Iron", "Medieval", 4
+//                , 1, 2, 2)
+//                , new Lamp("Wood", "Modern", true
+//                , 75));
+//        bedroom.makeBed();
+//        bedroom.getLamp().turnOn();
     }
 
     public void paintWalls(String color){
@@ -38,4 +58,27 @@ public class Room {
         wall4.paintWall(color);
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public Wall getWall1() {
+        return wall1;
+    }
+
+    public Wall getWall2() {
+        return wall2;
+    }
+
+    public Wall getWall3() {
+        return wall3;
+    }
+
+    public Wall getWall4() {
+        return wall4;
+    }
+
+    public Ceiling getCeiling() {
+        return ceiling;
+    }
 }
