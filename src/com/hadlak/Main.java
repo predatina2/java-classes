@@ -1,18 +1,18 @@
 package com.hadlak;
 
+import com.hadlak.animals.Cat;
+import com.hadlak.calculations.Calculator;
 import com.hadlak.comparisons.Comparisons;
 
 public class Main {
 
+    static int count = 0;
+    static int sum = 0;
+
     public static void main(String[] args) {
-        System.out.println(Comparisons.areEqualByThreeDecimalPlaces(-3.1756, -3.175));
-        System.out.println(Comparisons.areEqualByThreeDecimalPlaces(3.175, 3.176));
-        System.out.println(Comparisons.areEqualByThreeDecimalPlaces(3.0, 3.0));
-        System.out.println(Comparisons.hasEqualSum(1,1,1));
-        System.out.println(Comparisons.hasEqualSum(1,1,2));
-        System.out.println(Comparisons.hasEqualSum(1,-1,0));
-        System.out.println(Comparisons.hasTeen(9,99,19));
-        System.out.println(Comparisons.hasTeen(23,15,42));
-        System.out.println(Comparisons.hasTeen(22,23,34));
+        System.out.println(Cat.isCatPlaying(true, 10));
+        System.out.println(Cat.isCatPlaying(false, 36));
+        System.out.println(Cat.isCatPlaying(false, 35));
     }
+
 }
