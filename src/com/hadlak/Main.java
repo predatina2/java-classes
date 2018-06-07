@@ -10,9 +10,11 @@ public class Main {
     static int sum = 0;
 
     public static void main(String[] args) {
-        System.out.println(Cat.isCatPlaying(true, 10));
-        System.out.println(Cat.isCatPlaying(false, 36));
-        System.out.println(Cat.isCatPlaying(false, 35));
+        System.out.println(Calculator.sumFirstAndLastDigit(252));
+        System.out.println(Calculator.sumFirstAndLastDigit(257));
+        System.out.println(Calculator.sumFirstAndLastDigit(0));
+        System.out.println(Calculator.sumFirstAndLastDigit(5));
+        System.out.println(Calculator.sumFirstAndLastDigit(-10));
     }
 
 }
