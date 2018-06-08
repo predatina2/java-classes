@@ -1,8 +1,6 @@
 package com.hadlak;
 
-import com.hadlak.animals.Cat;
-import com.hadlak.calculations.Calculator;
-import com.hadlak.comparisons.Comparisons;
+import com.hadlak.pc.Printer;
 
 public class Main {
 
@@ -10,11 +8,12 @@ public class Main {
     static int sum = 0;
 
     public static void main(String[] args) {
-        System.out.println(Calculator.sumFirstAndLastDigit(252));
-        System.out.println(Calculator.sumFirstAndLastDigit(257));
-        System.out.println(Calculator.sumFirstAndLastDigit(0));
-        System.out.println(Calculator.sumFirstAndLastDigit(5));
-        System.out.println(Calculator.sumFirstAndLastDigit(-10));
+
+        Printer printer = new Printer("HD 300", 50,true);
+        while (!printer.hasEmptyToner()){
+            printer.printPage();
+        }
+        System.out.println("printed " + printer.getPagesPrinted() + " pages");
     }
 
 }
