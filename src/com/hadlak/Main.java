@@ -1,34 +1,24 @@
 package com.hadlak;
 
 import com.hadlak.vehicle.Vehicle;
+import java.util.Arrays;
 
-import java.awt.*;
-import java.util.Scanner;
 
 public class Main {
 
     static int count = 0;
     static int sum = 0;
 
-    private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        int[] myIntegers = getIntegers(5);
+        // int[] myIntegers = Utilities.getIntegers(10);
+        double[] myDoubles = Utilities.getDoubles(10);
 
-        ;
-        Utilities.printArray(Utilities.sortArray(myIntegers));
+       // Utilities.printArray(Utilities.sortArray(myDoubles));
+       // Utilities.printArray(Utilities.sortArray(myIntegers));
+        Arrays.sort(myDoubles);
+       Utilities.printArray(myDoubles);
 
-    }
-
-    public static int[] getIntegers(int number){
-        System.out.println("Enter " + number + " integer values.\n");
-        int[] values = new int[number];
-
-        for (int i = 0; i < values.length; i++){
-            values[i] = scanner.nextInt();
-        }
-
-        return values;
     }
 
     public static Car randomCar() {
