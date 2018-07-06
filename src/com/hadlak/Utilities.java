@@ -80,7 +80,7 @@ public final class Utilities {
         for (int i = 0; i < halfLength; i++) {
                 int temp = array[i];
                 array[i] = array[maxIndex - i];
-                array[array.length - i - 1] = temp;
+                array[maxIndex - i] = temp;
         }
     }
 
