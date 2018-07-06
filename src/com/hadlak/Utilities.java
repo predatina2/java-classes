@@ -74,6 +74,16 @@ public final class Utilities {
         return sortedArray;
     }
 
+    public static void reverseArray(int[] array){
+        int maxIndex = array.length - 1;
+        int halfLength = array.length / 2;
+        for (int i = 0; i < halfLength; i++) {
+                int temp = array[i];
+                array[i] = array[maxIndex - i];
+                array[array.length - i - 1] = temp;
+        }
+    }
+
     public static int[] getIntegers(int capacity) {
         System.out.println("Enter " + capacity + " integer values.\n");
         int[] values = new int[capacity];
@@ -95,4 +105,27 @@ public final class Utilities {
 
         return values;
     }
+
+    public static int findMin(int[] values){
+        // int min = values[0];
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i < values.length; i++){
+            if (min > values[i]){
+                min = values[i];
+            }
+        }
+        return min;
+    }
+
+    public static int findMax(int[] values){
+        // int max = values[0];
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < values.length; i++){
+            if (max < values[i]){
+                max = values[i];
+            }
+        }
+        return max;
+    }
+
 }
