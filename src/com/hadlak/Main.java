@@ -1,7 +1,10 @@
 package com.hadlak;
 
 import com.hadlak.vehicle.Vehicle;
+
+import javax.rmi.CORBA.Util;
 import java.util.Arrays;
+import java.util.Scanner;
 
 
 public class Main {
@@ -9,16 +12,26 @@ public class Main {
     static int count = 0;
     static int sum = 0;
 
+    private static Scanner scanner = new Scanner(System.in);
+
 
     public static void main(String[] args) {
-        // int[] myIntegers = Utilities.getIntegers(10);
-        double[] myDoubles = Utilities.getDoubles(10);
 
-       // Utilities.printArray(Utilities.sortArray(myDoubles));
-       // Utilities.printArray(Utilities.sortArray(myIntegers));
-        Arrays.sort(myDoubles);
-       Utilities.printArray(myDoubles);
+        System.out.println("enter the length of your array");
+        int count = scanner.nextInt();
+        int[] myValues = Utilities.getIntegers(count);
+        System.out.println(Arrays.toString(myValues));
+        System.out.println("Min: " + Utilities.findMin(myValues));
+        System.out.println("Max: " + Utilities.findMax(myValues));
+        System.out.println("reverse");
+        Utilities.reverseArray(myValues);
+        System.out.println(Arrays.toString(myValues));
 
+    }
+
+    private static void modifyArray(int[] array) {
+        array[0] = 2;
+        array = new int[]{2, 5, 3, 234, 2};
     }
 
     public static Car randomCar() {
