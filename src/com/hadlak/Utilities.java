@@ -28,12 +28,12 @@ public final class Utilities {
     }
 
     public static int[] sortArray(int[] array) {
-        int steps = 0;
+       // int steps = 0;
         int[] sortedArray = new int[array.length];
         sortedArray[0] = array[0];
         for (int i = 1; i < array.length; i++) {
             for (int j = i; j >= 0; j--) {
-                steps ++;
+                // steps ++;
                 if (j == 0) {
                     sortedArray[j] = array[i];
                 } else if (sortedArray[j - 1] > array[i]) {
@@ -44,7 +44,7 @@ public final class Utilities {
                 }
             }
         }
-        System.out.println("steps: " + steps);
+        //System.out.println("steps: " + steps);
         return sortedArray;
     }
 

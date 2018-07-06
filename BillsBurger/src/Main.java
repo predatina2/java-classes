@@ -3,12 +3,11 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("test");
 
-        Hamburger basicHamburger = new Hamburger("Basic Hamburger"
-                , "wheat", "beef", 5);
-        basicHamburger.addAddition1(new Banana());
-        basicHamburger.addAddition2(new Chicken());
-        basicHamburger.addAddition3(new Chips());
-        basicHamburger.addAddition4(new Cheese());
+        Hamburger basicHamburger = new Hamburger("wheat", "beef", 5);
+        basicHamburger.addAddition(Addition.createBanana());
+        basicHamburger.addAddition(Addition.createChicken());
+        basicHamburger.addAddition(Addition.createChips());
+        basicHamburger.addAddition(Addition.createCheese());
 
         System.out.println(basicHamburger.getDetails());
         System.out.println(basicHamburger.getBasicPrice());
@@ -16,12 +15,13 @@ public class Main {
 
         HealthyHamburger healthyHamburger = new HealthyHamburger("beef"
                 , 5);
-        healthyHamburger.addAddition1(new Banana());
-        healthyHamburger.addAddition2(new Peas());
-        healthyHamburger.addAddition3(new Onions());
-        healthyHamburger.addAddition4(new Chili());
-        healthyHamburger.addAddition5(new Cheese());
-        healthyHamburger.addAddition6(new Salad());
+        healthyHamburger.addAddition(Addition.createBanana());
+        healthyHamburger.addAddition(Addition.createPeas());
+        healthyHamburger.addAddition(Addition.createOnions());
+        healthyHamburger.addAddition(Addition.createChili());
+        healthyHamburger.addAddition(Addition.createCheese());
+        healthyHamburger.addAddition(Addition.createSalad());
+        healthyHamburger.addAddition(Addition.createChips());
 
         System.out.println(healthyHamburger.getDetails());
         System.out.println(healthyHamburger.getBasicPrice());
@@ -31,7 +31,7 @@ public class Main {
         DeluxeHamburger deluxeHamburger = new DeluxeHamburger("Deluxe Burger"
                 , "wheat", "beef", 9);
 
-        deluxeHamburger.addAddition1(new Banana());
+        deluxeHamburger.addAddition(Addition.createBanana());
         System.out.println(deluxeHamburger.getDetails());
         System.out.println(deluxeHamburger.getBasicPrice());
         System.out.println(deluxeHamburger.getTotalPrice());
