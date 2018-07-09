@@ -1,6 +1,7 @@
 package com.hadlak;
 
 import com.hadlak.grocery.GroceryList;
+import com.hadlak.mobile_phone.MobilePhoneApplication;
 import com.hadlak.vehicle.Vehicle;
 import java.util.ArrayList;
 
@@ -25,7 +26,8 @@ public class Main {
 //        Utilities.reverseArray(myValues);
 //        System.out.println(Arrays.toString(myValues));
 
-
+        MobilePhoneApplication myPhone = new MobilePhoneApplication();
+        myPhone.startMobilePhoneApplication();
 
 
     }

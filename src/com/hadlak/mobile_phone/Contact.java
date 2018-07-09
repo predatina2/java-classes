@@ -1,15 +1,13 @@
 package com.hadlak.mobile_phone;
 
-import java.util.ArrayList;
-
 public class Contact {
 
     private String name;
-    private String phoneNumer;
+    private String phoneNumber;
 
-    public Contact(String name, String phoneNumer) {
+    public Contact(String name, String phoneNumber) {
         this.name = name;
-        this.phoneNumer = phoneNumer;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getName() {
@@ -20,11 +18,11 @@ public class Contact {
         this.name = name;
     }
 
-    public String getPhoneNumer() {
-        return phoneNumer;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhoneNumer(String phoneNumer) {
-        this.phoneNumer = phoneNumer;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
