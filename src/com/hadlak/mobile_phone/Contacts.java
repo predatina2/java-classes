@@ -70,6 +70,12 @@ public class Contacts extends ArrayList<Contact> {
         return position;
     }
 
+    public String getPhoneNumber(String name) {
+        int index = getIndexOf(name);
+        String phoneNumber = super.get(index).getPhoneNumber();
+        return phoneNumber;
+    }
+
     public void printContacts(){
         for (int i = 0; i < super.size(); i++) {
             Contact thisContact = super.get(i);

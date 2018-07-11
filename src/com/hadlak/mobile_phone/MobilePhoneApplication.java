@@ -9,14 +9,14 @@ public class MobilePhoneApplication {
 
     public void startMobilePhoneApplication(){
         boolean quit = false;
-        listOptions();
+        listGlobalOptions();
         System.out.println("");
         while (!quit) {
             System.out.println("What do you want to do? Press a number.");
             int option = inputScanner.nextInt();
             inputScanner.nextLine();
             switch(option){
-                case 0: listOptions();
+                case 0: listGlobalOptions();
                 break;
                 case 1:
                     printContactList();
@@ -28,10 +28,10 @@ public class MobilePhoneApplication {
                     modifyContact();
                     break;
                 case 4:
-                    deleteContact();
+                    removeContact();
                     break;
                 case 5:
-                    findContact();
+                    searchForContactName();
                     break;
                 case 9:
                     quit = true;
@@ -43,8 +43,8 @@ public class MobilePhoneApplication {
         }
     }
 
-    public void listOptions(){
-        System.out.println("Your options: \n");
+    public void listGlobalOptions(){
+        System.out.println("Your options in your contact list: \n");
         System.out.println("Press 0: To list the options.");
         System.out.println("Press 1: To print the entire contact list.");
         System.out.println("Press 2: To add a new contact.");
@@ -54,27 +54,133 @@ public class MobilePhoneApplication {
         System.out.println("Press 9: To quit the application.");
     }
 
+    public void listModifyOptions(){
+        System.out.println("Your options in the modify panel of your contact list: \n");
+        System.out.println("Press 1: To change the name.");
+        System.out.println("Press 2: To change the phone number.");
+    }
+
+    public void listSearchResultOptions(){
+        System.out.println("Your options in the search result menu of your contact list: \n");
+        System.out.println("Press 1: To change the name.");
+        System.out.println("Press 2: To change the phone number.");
+        System.out.println("Press 3: To delete the contact.");
+    }
+
     public void printContactList(){
         phoneContacts.printContacts();
     }
 
     public void addNewContact(){
-        System.out.println("add the name of the new contact: ");
-        String name = inputScanner.nextLine();
-        System.out.println("add the phone number of the new contact: ");
-        String phoneNumber = inputScanner.nextLine();
+        String name;
+        String phoneNumber;
+
+        System.out.println("enter the name of the new contact: ");
+        name = inputScanner.nextLine();
+
+        System.out.println("enter the phone number of the new contact: ");
+        phoneNumber = inputScanner.nextLine();
+
         phoneContacts.addContact(name, phoneNumber);
+
+        System.out.println("new contact added: " + name + ", " + phoneNumber);
     }
 
     public void modifyContact() {
+        String oldName;
 
+        System.out.println("enter the name of the contact you want to modify: ");
+        oldName = inputScanner.nextLine();
+
+        if (phoneContacts.findContact(oldName)){
+            String oldPhoneNumber = phoneContacts.getPhoneNumber(oldName);
+            int option = 0;
+
+            listModifyOptions();
+
+            option = inputScanner.nextInt();
+            inputScanner.nextLine();
+            switch(option){
+                case 1:
+                    modifyContactName(oldName);
+                    break;
+                case 2:
+                    modifyContactPhoneNumber(oldName, oldPhoneNumber);
+                    break;
+                default:
+                    listModifyOptions();
+                    break;
+            }
+        } else {
+            System.out.println(oldName + " doesn't exists.");
+        }
     }
 
-    public void deleteContact() {
-
+    public void modifyContactName(String oldName){
+        System.out.println("Changing the name for contact: " + oldName);
+        System.out.println("enter the new name: ");
+        String newName = inputScanner.nextLine();
+        phoneContacts.modifyName(oldName, newName);
+        System.out.println("changed contact name " + oldName + " to " + newName);
     }
 
-    public void findContact() {
+    public void modifyContactPhoneNumber(String oldName, String oldPhoneNumber){
+        System.out.println("Changing the phone number for contact: " + oldName);
+        System.out.println("enter the new phone number: ");
+        String newPhoneNumber = inputScanner.nextLine();
+        phoneContacts.modifyPhoneNumber(oldName, newPhoneNumber);
+        System.out.println("changed phone number for contact name " + oldName
+                + " from " + oldPhoneNumber + " to " + newPhoneNumber);
+    }
 
+    public void removeContact() {
+        String name;
+
+        System.out.println("enter the name of the contact you want to remove: ");
+        name = inputScanner.nextLine();
+
+        removeContact(name);
+    }
+
+    public void removeContact(String name){
+        if (phoneContacts.findContact(name)){
+            phoneContacts.removeContact(name);
+            System.out.println(name + " removed.");
+        } else {
+            System.out.println(name + " doesn't exists.");
+        }
+    }
+
+    public void searchForContactName() {
+        String oldName;
+
+        System.out.println("Enter the name of the contact you want to find");
+        oldName = inputScanner.nextLine();
+
+        if (phoneContacts.findContact(oldName)){
+            String oldPhoneNumber = phoneContacts.getPhoneNumber(oldName);
+            int option = 0;
+
+            System.out.println(oldName + " exists");
+
+            listSearchResultOptions();
+
+            option = inputScanner.nextInt();
+            inputScanner.nextLine();
+            switch(option){
+                case 1:
+                    modifyContactName(oldName);
+                    break;
+                case 2:
+                    modifyContactPhoneNumber(oldName, oldPhoneNumber);
+                    break;
+                case 3:
+                    removeContact(oldName);
+                    break;
+                default:
+                    listSearchResultOptions();
+                    break;
+            }
+        }
     }
 }
