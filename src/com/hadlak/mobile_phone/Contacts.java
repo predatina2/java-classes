@@ -8,15 +8,13 @@ public class Contacts extends ArrayList<Contact> {
         super.add(Contact.createContact(name, phoneNumber));
     }
 
-    public void modifyName(String oldName, String newName){
-        //check: kein output innerhalb einer reinen datenklassen
-        // gib einen bool zurück mit true für erfolgreich etc., dann kannst du außen einfach checken
-        int index = getIndexOf(oldName);
-        if (index >= 0) {
-            this.modifyName(index, newName);
-            System.out.println("changed contact name from " + oldName + " to " + newName);
+    public boolean modifyName(String oldName, String newName){
+        int oldIndex = getIndexOf(oldName);
+        if (oldIndex >= 0 && !doesContactExist(newName)) {
+                this.modifyName(oldIndex, newName);
+                return true;
         } else {
-            System.out.println(oldName + " does not exist.");
+            return false;
         }
     }
 
@@ -24,15 +22,13 @@ public class Contacts extends ArrayList<Contact> {
         super.get(index).setName(newName);
     }
 
-    public void modifyPhoneNumber(String oldName, String newPhoneNumber){
-        //check: kein output innerhalb einer reinen datenklassen
-        // gib einen bool zurück mit true für erfolgreich etc., dann kannst du außen einfach checken
+    public boolean modifyPhoneNumber(String oldName, String newPhoneNumber){
         int index = getIndexOf(oldName);
         if (index >= 0) {
             this.modifyPhoneNumber(index, newPhoneNumber);
-            System.out.println("changed phone number for contact: " + oldName + " to " + newPhoneNumber);
+            return true;
         } else {
-            System.out.println(oldName + " does not exist.");
+            return false;
         }
     }
 
@@ -40,15 +36,13 @@ public class Contacts extends ArrayList<Contact> {
         super.get(index).setPhoneNumber(newPhoneNumber);
     }
 
-    public void removeContact(String name){
-        //check: kein output innerhalb einer reinen datenklassen
-        // gib einen bool zurück mit true für erfolgreich etc., dann kannst du außen einfach checken
+    public boolean removeContact(String name){
         int index = getIndexOf(name);
         if (index >= 0) {
             this.removeContact(index);
-            System.out.println("removed contact: " + name);
+            return true;
         } else {
-            System.out.println(name + " does not exist.");
+            return false;
         }
     }
 
@@ -56,14 +50,8 @@ public class Contacts extends ArrayList<Contact> {
         super.remove(index);
     }
 
-    public boolean findContact(String name){
-        //check: kuerzer? return getIndexOf != -1
-        // name ist falsch, sollte DoesContactExist heißen
-        if (this.getIndexOf(name) == -1) {
-            return false;
-        } else {
-            return true;
-        }
+    public boolean doesContactExist(String name){
+        return(this.getIndexOf(name) != -1);
     }
 
     private int getIndexOf(String name) {

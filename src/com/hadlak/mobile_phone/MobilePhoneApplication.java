@@ -9,7 +9,7 @@ public class MobilePhoneApplication {
     private Scanner inputScanner;
 
     public MobilePhoneApplication(String myNumber) {
-        myNumber = myNumber; //check: variable und parameter gleicher name
+        this.myNumber = myNumber; //check: variable und parameter gleicher name
         phoneContacts = new Contacts();
         inputScanner = new Scanner(System.in);
     }
@@ -86,7 +86,7 @@ public class MobilePhoneApplication {
         System.out.println("enter the name of the new contact: ");
         name = inputScanner.nextLine();
 
-        if (!phoneContacts.findContact(name)) {
+        if (!phoneContacts.doesContactExist(name)) {
 
             System.out.println("enter the phone number of the new contact: ");
             phoneNumber = inputScanner.nextLine();
@@ -105,7 +105,7 @@ public class MobilePhoneApplication {
         System.out.println("enter the name of the contact you want to modify: ");
         oldName = inputScanner.nextLine();
 
-        if (phoneContacts.findContact(oldName)) {
+        if (phoneContacts.doesContactExist(oldName)) {
             String oldPhoneNumber = phoneContacts.getPhoneNumber(oldName);
             int option = 0;
 
@@ -133,17 +133,27 @@ public class MobilePhoneApplication {
         System.out.println("Changing the name for contact: " + oldName);
         System.out.println("enter the new name: ");
         String newName = inputScanner.nextLine();
-        phoneContacts.modifyName(oldName, newName);
-        System.out.println("changed contact name from " + oldName + " to " + newName);
+        if (phoneContacts.modifyName(oldName, newName)){
+            System.out.println("changed contact name from " + oldName + " to " + newName);
+        } else {
+            System.out.println("couldn't change name. Could be one of the following reasons:");
+            System.out.println("1. your search name doesn't exist");
+            System.out.println("2. your new name already exists");
+        }
+
     }
 
     public void modifyContactPhoneNumber(String oldName, String oldPhoneNumber) {
         System.out.println("Changing the phone number for contact: " + oldName);
         System.out.println("enter the new phone number: ");
         String newPhoneNumber = inputScanner.nextLine();
-        phoneContacts.modifyPhoneNumber(oldName, newPhoneNumber);
-        System.out.println("changed phone number for contact name " + oldName
-                + " from " + oldPhoneNumber + " to " + newPhoneNumber);
+        if (phoneContacts.modifyPhoneNumber(oldName, newPhoneNumber)){
+            System.out.println("changed phone number for contact name " + oldName
+                    + " from " + oldPhoneNumber + " to " + newPhoneNumber);
+        } else {
+            System.out.println(oldName + " does not exist.");
+        }
+
     }
 
     public void removeContact() {
@@ -153,8 +163,7 @@ public class MobilePhoneApplication {
     }
 
     public void removeContact(String name) {
-        if (phoneContacts.findContact(name)) {
-            phoneContacts.removeContact(name);
+        if (phoneContacts.removeContact(name)) {
             System.out.println(name + " removed.");
         } else {
             System.out.println(name + " doesn't exists.");
@@ -167,7 +176,7 @@ public class MobilePhoneApplication {
         System.out.println("Enter the name of the contact you want to find");
         oldName = inputScanner.nextLine();
 
-        if (phoneContacts.findContact(oldName)) {
+        if (phoneContacts.doesContactExist(oldName)) {
             String oldPhoneNumber = phoneContacts.getPhoneNumber(oldName);
             int option = 0;
 

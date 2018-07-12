@@ -26,8 +26,29 @@ public class Main {
 //        Utilities.reverseArray(myValues);
 //        System.out.println(Arrays.toString(myValues));
 
-        MobilePhoneApplication myPhone = new MobilePhoneApplication("3");
-        myPhone.startMobilePhoneApplication();
+//        MobilePhoneApplication myPhone = new MobilePhoneApplication();
+//        myPhone.startMobilePhoneApplication();
+
+
+
+        ArrayList<Integer> intArrayList = new ArrayList<Integer>();
+
+        for (int i = 0; i < 10; i++ ){
+            intArrayList.add(Integer.valueOf(i));
+        }
+
+        for (int i = 0; i < intArrayList.size(); i++ ){
+            System.out.println(i + " --> " + intArrayList.get(i).intValue());
+        }
+
+        ArrayList<Double> doubleArray = new ArrayList<Double>();
+        for (double dbl = 0.0; dbl <= 10.0; dbl += 0.5) {
+            doubleArray.add(Double.valueOf(dbl));
+        }
+
+        for (int i = 0; i < doubleArray.size(); i++ ){
+            System.out.println(i + " --> " + doubleArray.get(i).doubleValue());
+        }
 
 
     }
