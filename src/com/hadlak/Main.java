@@ -26,7 +26,7 @@ public class Main {
 //        Utilities.reverseArray(myValues);
 //        System.out.println(Arrays.toString(myValues));
 
-        MobilePhoneApplication myPhone = new MobilePhoneApplication();
+        MobilePhoneApplication myPhone = new MobilePhoneApplication("3");
         myPhone.startMobilePhoneApplication();
 
 

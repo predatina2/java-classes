@@ -4,10 +4,17 @@ import java.util.Scanner;
 
 public class MobilePhoneApplication {
 
-    private Contacts phoneContacts = new Contacts();
-    private Scanner inputScanner = new Scanner(System.in);
+    private String myNumber;
+    private Contacts phoneContacts;
+    private Scanner inputScanner;
 
-    public void startMobilePhoneApplication(){
+    public MobilePhoneApplication(String myNumber) {
+        myNumber = myNumber; //check: variable und parameter gleicher name
+        phoneContacts = new Contacts();
+        inputScanner = new Scanner(System.in);
+    }
+
+    public void startMobilePhoneApplication() {
         boolean quit = false;
         listGlobalOptions();
         System.out.println("");
@@ -15,9 +22,10 @@ public class MobilePhoneApplication {
             System.out.println("What do you want to do? Press a number.");
             int option = inputScanner.nextInt();
             inputScanner.nextLine();
-            switch(option){
-                case 0: listGlobalOptions();
-                break;
+            switch (option) {
+                case 0:
+                    listGlobalOptions();
+                    break;
                 case 1:
                     printContactList();
                     break;
@@ -43,7 +51,7 @@ public class MobilePhoneApplication {
         }
     }
 
-    public void listGlobalOptions(){
+    public void listGlobalOptions() {
         System.out.println("Your options in your contact list: \n");
         System.out.println("Press 0: To list the options.");
         System.out.println("Press 1: To print the entire contact list.");
@@ -54,36 +62,41 @@ public class MobilePhoneApplication {
         System.out.println("Press 9: To quit the application.");
     }
 
-    public void listModifyOptions(){
+    public void listModifyOptions() {
         System.out.println("Your options in the modify panel of your contact list: \n");
         System.out.println("Press 1: To change the name.");
         System.out.println("Press 2: To change the phone number.");
     }
 
-    public void listSearchResultOptions(){
+    public void listSearchResultOptions() {
         System.out.println("Your options in the search result menu of your contact list: \n");
         System.out.println("Press 1: To change the name.");
         System.out.println("Press 2: To change the phone number.");
         System.out.println("Press 3: To delete the contact.");
     }
 
-    public void printContactList(){
+    public void printContactList() {
         phoneContacts.printContacts();
     }
 
-    public void addNewContact(){
+    public void addNewContact() {
         String name;
         String phoneNumber;
 
         System.out.println("enter the name of the new contact: ");
         name = inputScanner.nextLine();
 
-        System.out.println("enter the phone number of the new contact: ");
-        phoneNumber = inputScanner.nextLine();
+        if (!phoneContacts.findContact(name)) {
 
-        phoneContacts.addContact(name, phoneNumber);
+            System.out.println("enter the phone number of the new contact: ");
+            phoneNumber = inputScanner.nextLine();
 
-        System.out.println("new contact added: " + name + ", " + phoneNumber);
+            phoneContacts.addContact(name, phoneNumber);
+
+            System.out.println("new contact added: " + name + ", " + phoneNumber);
+        } else {
+            System.out.println("Contact already exists.");
+        }
     }
 
     public void modifyContact() {
@@ -92,7 +105,7 @@ public class MobilePhoneApplication {
         System.out.println("enter the name of the contact you want to modify: ");
         oldName = inputScanner.nextLine();
 
-        if (phoneContacts.findContact(oldName)){
+        if (phoneContacts.findContact(oldName)) {
             String oldPhoneNumber = phoneContacts.getPhoneNumber(oldName);
             int option = 0;
 
@@ -100,7 +113,7 @@ public class MobilePhoneApplication {
 
             option = inputScanner.nextInt();
             inputScanner.nextLine();
-            switch(option){
+            switch (option) {
                 case 1:
                     modifyContactName(oldName);
                     break;
@@ -112,19 +125,19 @@ public class MobilePhoneApplication {
                     break;
             }
         } else {
-            System.out.println(oldName + " doesn't exists.");
+            System.out.println(oldName + " doesn't exist.");
         }
     }
 
-    public void modifyContactName(String oldName){
+    public void modifyContactName(String oldName) {
         System.out.println("Changing the name for contact: " + oldName);
         System.out.println("enter the new name: ");
         String newName = inputScanner.nextLine();
         phoneContacts.modifyName(oldName, newName);
-        System.out.println("changed contact name " + oldName + " to " + newName);
+        System.out.println("changed contact name from " + oldName + " to " + newName);
     }
 
-    public void modifyContactPhoneNumber(String oldName, String oldPhoneNumber){
+    public void modifyContactPhoneNumber(String oldName, String oldPhoneNumber) {
         System.out.println("Changing the phone number for contact: " + oldName);
         System.out.println("enter the new phone number: ");
         String newPhoneNumber = inputScanner.nextLine();
@@ -134,16 +147,13 @@ public class MobilePhoneApplication {
     }
 
     public void removeContact() {
-        String name;
-
         System.out.println("enter the name of the contact you want to remove: ");
-        name = inputScanner.nextLine();
-
+        String name = inputScanner.nextLine();
         removeContact(name);
     }
 
-    public void removeContact(String name){
-        if (phoneContacts.findContact(name)){
+    public void removeContact(String name) {
+        if (phoneContacts.findContact(name)) {
             phoneContacts.removeContact(name);
             System.out.println(name + " removed.");
         } else {
@@ -157,7 +167,7 @@ public class MobilePhoneApplication {
         System.out.println("Enter the name of the contact you want to find");
         oldName = inputScanner.nextLine();
 
-        if (phoneContacts.findContact(oldName)){
+        if (phoneContacts.findContact(oldName)) {
             String oldPhoneNumber = phoneContacts.getPhoneNumber(oldName);
             int option = 0;
 
@@ -167,7 +177,7 @@ public class MobilePhoneApplication {
 
             option = inputScanner.nextInt();
             inputScanner.nextLine();
-            switch(option){
+            switch (option) {
                 case 1:
                     modifyContactName(oldName);
                     break;

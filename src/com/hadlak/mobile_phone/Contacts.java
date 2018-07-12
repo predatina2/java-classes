@@ -5,10 +5,12 @@ import java.util.ArrayList;
 public class Contacts extends ArrayList<Contact> {
 
     public void addContact(String name, String phoneNumber){
-        super.add(new Contact(name, phoneNumber));
+        super.add(Contact.createContact(name, phoneNumber));
     }
 
     public void modifyName(String oldName, String newName){
+        //check: kein output innerhalb einer reinen datenklassen
+        // gib einen bool zurück mit true für erfolgreich etc., dann kannst du außen einfach checken
         int index = getIndexOf(oldName);
         if (index >= 0) {
             this.modifyName(index, newName);
@@ -23,9 +25,11 @@ public class Contacts extends ArrayList<Contact> {
     }
 
     public void modifyPhoneNumber(String oldName, String newPhoneNumber){
+        //check: kein output innerhalb einer reinen datenklassen
+        // gib einen bool zurück mit true für erfolgreich etc., dann kannst du außen einfach checken
         int index = getIndexOf(oldName);
         if (index >= 0) {
-            this.modifyName(index, newPhoneNumber);
+            this.modifyPhoneNumber(index, newPhoneNumber);
             System.out.println("changed phone number for contact: " + oldName + " to " + newPhoneNumber);
         } else {
             System.out.println(oldName + " does not exist.");
@@ -37,6 +41,8 @@ public class Contacts extends ArrayList<Contact> {
     }
 
     public void removeContact(String name){
+        //check: kein output innerhalb einer reinen datenklassen
+        // gib einen bool zurück mit true für erfolgreich etc., dann kannst du außen einfach checken
         int index = getIndexOf(name);
         if (index >= 0) {
             this.removeContact(index);
@@ -51,6 +57,8 @@ public class Contacts extends ArrayList<Contact> {
     }
 
     public boolean findContact(String name){
+        //check: kuerzer? return getIndexOf != -1
+        // name ist falsch, sollte DoesContactExist heißen
         if (this.getIndexOf(name) == -1) {
             return false;
         } else {
@@ -62,7 +70,7 @@ public class Contacts extends ArrayList<Contact> {
         int position = -1;
         for (int i = 0; i < super.size(); i++) {
             Contact contact = super.get(i);
-            if (contact.getName() == name) {
+            if (contact.getName().equals(name)) {
                 position = i;
                 return position;
             }
