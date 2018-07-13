@@ -22,4 +22,12 @@ public class Customer {
         transactions.add(Double.valueOf(transaction));
         return true;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public ArrayList<Double> getTransactions() {
+        return transactions;
+    }
 }

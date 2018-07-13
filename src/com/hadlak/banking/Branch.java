@@ -4,13 +4,22 @@ import java.util.ArrayList;
 
 public class Branch {
 
-    private ArrayList<Customer> customers;
+    private Customers customers;
 
-    public void addCustomer(String name, double initTransActionAmount){
-        customers.add(Customer.createCustomer(name, initTransActionAmount));
+    public Branch(){
+        this.customers = Customers.createEmptyCustomerList();
     }
 
-    public void addTransaction(String name, double transaction){
+    public boolean addCustomer(String customerName, double initTransActionAmount){
+        if (customers.addCustomer(customerName, initTransActionAmount)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void addTransaction(String customerName, double transaction){
 
     }
+
 }
