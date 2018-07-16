@@ -17,8 +17,7 @@ public class Branch {
     }
 
     public void printCustomers(boolean printTransactions) {
-        for (int i = 0; i < customers.size(); i++) {
-            Customer customer = customers.get(i);
+        for (Customer customer : customers) {
             System.out.println("Customer Name: " + customer.getName());
             if (printTransactions) {
                 customer.printTransactions();
@@ -37,10 +36,12 @@ public class Branch {
     }
 
     public boolean addTransaction(String customerName, double transactionAmount) {
-        if (!doesCustomerExist(customerName)) {
+        int index = indexOf(customerName);
+
+        if (index == -1) {
             return false;
         } else {
-            Customer customer = customers.get(indexOf(customerName));
+            Customer customer = customers.get(index);
             customer.addTransactions(transactionAmount);
             return true;
         }
@@ -48,7 +49,7 @@ public class Branch {
 
     public boolean doesCustomerExist(String customerName) {
 
-        for (int i = 0; i <= customers.size(); i++) {
+        for (int i = 0; i < customers.size(); i++) {
             if (customers.get(i).getName().equals(customerName)) {
                 return true;
             }
@@ -57,7 +58,7 @@ public class Branch {
     }
 
     private int indexOf(String customerName) {
-        for (int i = 0; i <= customers.size(); i++) {
+        for (int i = 0; i < customers.size(); i++) {
             if (customers.get(i).getName().equals(customerName)) {
                 return i;
             }

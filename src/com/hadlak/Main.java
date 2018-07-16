@@ -1,5 +1,6 @@
 package com.hadlak;
 
+import com.hadlak.banking.BankingApp;
 import com.hadlak.grocery.GroceryList;
 import com.hadlak.mobile_phone.MobilePhoneApplication;
 import com.hadlak.vehicle.Vehicle;
@@ -30,25 +31,28 @@ public class Main {
 //        myPhone.startMobilePhoneApplication();
 
 
+//
+//        ArrayList<Integer> intArrayList = new ArrayList<Integer>();
+//
+//        for (int i = 0; i < 10; i++ ){
+//            intArrayList.add(Integer.valueOf(i));
+//        }
+//
+//        for (int i = 0; i < intArrayList.size(); i++ ){
+//            System.out.println(i + " --> " + intArrayList.get(i).intValue());
+//        }
+//
+//        ArrayList<Double> doubleArray = new ArrayList<Double>();
+//        for (double dbl = 0.0; dbl <= 10.0; dbl += 0.5) {
+//            doubleArray.add(Double.valueOf(dbl));
+//        }
+//
+//        for (int i = 0; i < doubleArray.size(); i++ ){
+//            System.out.println(i + " --> " + doubleArray.get(i).doubleValue());
+//        }
 
-        ArrayList<Integer> intArrayList = new ArrayList<Integer>();
-
-        for (int i = 0; i < 10; i++ ){
-            intArrayList.add(Integer.valueOf(i));
-        }
-
-        for (int i = 0; i < intArrayList.size(); i++ ){
-            System.out.println(i + " --> " + intArrayList.get(i).intValue());
-        }
-
-        ArrayList<Double> doubleArray = new ArrayList<Double>();
-        for (double dbl = 0.0; dbl <= 10.0; dbl += 0.5) {
-            doubleArray.add(Double.valueOf(dbl));
-        }
-
-        for (int i = 0; i < doubleArray.size(); i++ ){
-            System.out.println(i + " --> " + doubleArray.get(i).doubleValue());
-        }
+        BankingApp banking = new BankingApp();
+        banking.startApp();
 
 
     }
