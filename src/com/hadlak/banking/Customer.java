@@ -12,13 +12,20 @@ public class Customer {
         this.transactions = transactions;
     }
 
-    public static Customer createCustomer(String name, double initTransactionAmount){
+    public static Customer createCustomer(String name, double initTransactionAmount) {
         ArrayList<Double> transactions = new ArrayList<Double>();
         transactions.add(Double.valueOf(initTransactionAmount));
         return new Customer(name, transactions);
     }
 
-    public boolean addTransactions(double transaction){
+    public void printTransactions() {
+        System.out.println("Transactions: ");
+        for (int i = 0; i < transactions.size(); i++) {
+            System.out.println("   " +  i + " " +  transactions.get(i).doubleValue());
+        }
+    }
+
+    public boolean addTransactions(double transaction) {
         transactions.add(Double.valueOf(transaction));
         return true;
     }

@@ -4,22 +4,69 @@ import java.util.ArrayList;
 
 public class Branch {
 
-    private Customers customers;
+    private ArrayList<Customer> customers;
+    private String branchName;
 
-    public Branch(){
-        this.customers = Customers.createEmptyCustomerList();
+    public Branch(String branchName) {
+        this.branchName = branchName;
+        this.customers = new ArrayList<Customer>();
     }
 
-    public boolean addCustomer(String customerName, double initTransActionAmount){
-        if (customers.addCustomer(customerName, initTransActionAmount)){
-            return true;
-        } else {
-            return false;
+    public static Branch createBranch(String branchName) {
+        return new Branch(branchName);
+    }
+
+    public void printCustomers(boolean printTransactions) {
+        for (int i = 0; i < customers.size(); i++) {
+            Customer customer = customers.get(i);
+            System.out.println("Customer Name: " + customer.getName());
+            if (printTransactions) {
+                customer.printTransactions();
+            }
         }
     }
 
-    public void addTransaction(String customerName, double transaction){
+    public boolean addCustomer(String customerName, double initTransactionAmount) {
 
+        if (doesCustomerExist(customerName)) {
+            return false;
+        } else {
+            customers.add(Customer.createCustomer(customerName, initTransactionAmount));
+            return true;
+        }
+    }
+
+    public boolean addTransaction(String customerName, double transactionAmount) {
+        if (!doesCustomerExist(customerName)) {
+            return false;
+        } else {
+            Customer customer = customers.get(indexOf(customerName));
+            customer.addTransactions(transactionAmount);
+            return true;
+        }
+    }
+
+    public boolean doesCustomerExist(String customerName) {
+
+        for (int i = 0; i <= customers.size(); i++) {
+            if (customers.get(i).getName().equals(customerName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private int indexOf(String customerName) {
+        for (int i = 0; i <= customers.size(); i++) {
+            if (customers.get(i).getName().equals(customerName)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public String getBranchName() {
+        return branchName;
     }
 
 }
