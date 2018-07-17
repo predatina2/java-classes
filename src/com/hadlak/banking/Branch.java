@@ -47,7 +47,7 @@ public class Branch {
         }
     }
 
-    public boolean doesCustomerExist(String customerName) {
+    private boolean doesCustomerExist(String customerName) {
 
         for (int i = 0; i < customers.size(); i++) {
             if (customers.get(i).getName().equals(customerName)) {

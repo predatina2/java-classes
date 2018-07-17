@@ -1,12 +1,8 @@
 package com.hadlak;
 
+import com.hadlak.banking.Bank;
 import com.hadlak.banking.BankingApp;
-import com.hadlak.grocery.GroceryList;
-import com.hadlak.mobile_phone.MobilePhoneApplication;
 import com.hadlak.vehicle.Vehicle;
-import java.util.ArrayList;
-
-import java.util.Scanner;
 
 
 public class Main {
@@ -51,13 +47,21 @@ public class Main {
 //            System.out.println(i + " --> " + doubleArray.get(i).doubleValue());
 //        }
 
-        BankingApp banking = new BankingApp();
-        banking.startApp();
+//        BankingApp myApp = new BankingApp();
+//        myApp.startApp("GreenBank");
+        Bank myBank = new Bank("Test Bank");
+
+        myBank.addBranch("Schwerin");
+        myBank.addBranch("Rostock");
+        myBank.addCustomer("Schwerin", "Klaus Müller" , 30000);
+        myBank.addCustomer("Schwerin", "Carla Schlicht" , 1000);
+        myBank.addTransaction("Schwerin", "Carla Schlicht", 12000);
+        myBank.printCustomers("Schwerin" , false);
+        myBank.printCustomers("Schwerin" , true);
+
 
 
     }
-
-
 
 
     private static void modifyArray(int[] array) {

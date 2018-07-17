@@ -1,19 +1,16 @@
 package com.hadlak.banking;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BankingApp {
 
     private static Scanner inputScanner = new Scanner(System.in);
-    private ArrayList<Branch> branches;
+    private Bank bank;
 
-    public BankingApp() {
-        branches = new ArrayList<Branch>();
-    }
-
-    public void startApp() {
+    public void startApp(String bankName) {
+        this.bank = new Bank(bankName);
         boolean quit = false;
+
         listOptions();
         System.out.println("");
         while (!quit) {
@@ -73,13 +70,7 @@ public class BankingApp {
         printTransactions = inputScanner.nextBoolean();
         inputScanner.nextLine();
 
-        if (!doesBranchExist(branchName)) {
-            return false;
-        } else {
-            Branch branch = branches.get(indexOf(branchName));
-            branch.printCustomers(printTransactions);
-            return true;
-        }
+        return bank.printCustomers(branchName, printTransactions);
     }
 
     public boolean addBranch() {
@@ -88,11 +79,11 @@ public class BankingApp {
         System.out.println("Enter the branch name which you want to add to the bank:");
         branchName = inputScanner.nextLine();
 
-        if (doesBranchExist(branchName)) {
-            return false;
-        } else {
-            branches.add(Branch.createBranch(branchName));
+        if (bank.addBranch(branchName)) {
             return true;
+        } else {
+            System.out.println("branch name already exists");
+            return false;
         }
     }
 
@@ -110,16 +101,11 @@ public class BankingApp {
         initTransactionAmount = inputScanner.nextDouble();
         inputScanner.nextLine();
 
-        if (!doesBranchExist(branchName)) {
-            return false;
+        if (bank.addCustomer(branchName, customerName, initTransactionAmount)) {
+            return true;
         } else {
-            Branch branch = branches.get(indexOf(branchName));
-            if (branch.addCustomer(customerName, initTransactionAmount)) {
-                return true;
-            } else {
-                return false;
-            }
-
+            System.out.println("either branch does not exist or customer already exists");
+            return false;
         }
     }
 
@@ -128,7 +114,6 @@ public class BankingApp {
         String branchName;
         String customerName;
         double transactionAmount;
-        int index;
 
         System.out.println("Enter the branch name of the customer");
         branchName = inputScanner.nextLine();
@@ -138,36 +123,10 @@ public class BankingApp {
         transactionAmount = inputScanner.nextDouble();
         inputScanner.nextLine();
 
-        index = indexOf(branchName);
-
-        if (index == -1) {
-            return false;
+        if (bank.addTransaction(branchName, customerName, transactionAmount)) {
+            return true;
         } else {
-            Branch branch = branches.get(index);
-            if (branch.addTransaction(customerName, transactionAmount)) {
-                return true;
-            } else {
-                return false;
-            }
-
+            return false;
         }
-    }
-
-    public boolean doesBranchExist(String branchName) {
-        for (int i = 0; i < branches.size(); i++) {
-            if (branches.get(i).getBranchName().equals(branchName)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private int indexOf(String branchName) {
-        for (int i = 0; i < branches.size(); i++) {
-            if (branches.get(i).getBranchName().equals(branchName)) {
-                return i;
-            }
-        }
-        return -1;
     }
 }
