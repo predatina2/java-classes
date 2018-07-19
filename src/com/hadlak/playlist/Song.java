@@ -1,9 +1,17 @@
 package com.hadlak.playlist;
 
+import java.util.ArrayList;
+
 public class Song {
 
     private String title;
     private double duration;
+    private ArrayList<Album> relatedAlbums;
+
+    public Song(String title, double duration) {
+        this.title = title;
+        this.duration = duration;
+    }
 
     public String getTitle() {
         return title;
@@ -21,9 +29,4 @@ public class Song {
         this.duration = duration;
     }
 
-    public Song(String title, double duration) {
-
-        this.title = title;
-        this.duration = duration;
-    }
 }
