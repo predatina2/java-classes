@@ -75,7 +75,7 @@ public class Demo {
         Scanner scanner = new Scanner(System.in);
         boolean quit = false;
         boolean goingForward = true;
-        int lastAction = 0;
+//        int lastAction = 0;
         ListIterator<String> listIterator = cities.listIterator();
 
         if (cities.isEmpty()) {
@@ -92,36 +92,42 @@ public class Demo {
             scanner.nextLine();
             switch (action) {
                 case 0:
-                    System.out.println("Hiliday (VAcation) over");
+                    System.out.println("Holiday (Vacation) over");
                     quit = true;
                     break;
                 case 1:
-                    if (listIterator.hasNext()) {
-                        if (lastAction == 2) {
+                    if (!goingForward){
+                        if (listIterator.hasNext()){
                             listIterator.next();
-                            if (!listIterator.hasNext()){
-                                System.out.println("We are at the end of the list");
-                            }
+                        } else {
+                            System.out.println("We are at the end of the list");
+                            break;
                         }
+                    }
+                    if(listIterator.hasNext()){
                         System.out.println("Now visiting " + listIterator.next());
                     } else {
-                        System.out.println("Reached the end of the list");
+                        System.out.println("We are at the end of the list");
+                        break;
                     }
-                    lastAction = 1;
+                    goingForward = true;
                     break;
                 case 2:
-                    if (listIterator.hasPrevious()) {
-                        if (lastAction == 1) {
+                    if (goingForward){
+                        if (listIterator.hasPrevious()){
                             listIterator.previous();
-                            if (!listIterator.hasPrevious()){
-                                System.out.println("We are at the start of the list");
-                            }
+                        } else {
+                            System.out.println("We are at the start of the list");
+                            break;
                         }
-                        System.out.println("Now visiting " + listIterator.previous());
-                    }  else {
-                        System.out.println("We are at the start of the list");
                     }
-                    lastAction = 2;
+                    if(listIterator.hasPrevious()){
+                        System.out.println("Now visiting " + listIterator.previous());
+                    } else {
+                        System.out.println("We are at the start of the list");
+                        break;
+                    }
+                    goingForward = false;
                     break;
                 case 3:
                     printMenu();
@@ -132,6 +138,8 @@ public class Demo {
             }
 
         }
+
+
     }
 
     private static void printMenu() {
