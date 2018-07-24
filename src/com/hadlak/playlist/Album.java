@@ -31,4 +31,14 @@ public class Album {
         }
     }
 
+    public boolean doesContainSong(Song song){
+        ListIterator<Song> iterator = songs.listIterator();
+        while (iterator.hasNext()){
+            if (iterator.next().equals(song)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

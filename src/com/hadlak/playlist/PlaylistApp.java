@@ -4,89 +4,91 @@ import sun.awt.image.ImageWatched;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 public class PlaylistApp {
 
-    private LinkedList<Song> playlist;
+    private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        Song song1 = new Song("Highway to Hell", 34.56);
-        Song song2 = new Song("Old Mac Donald has a farm", 34.56);
-        Song song3 = new Song("Peacetrain", 34.56);
-        Song song4 = new Song("Forgotten", 34.56);
-        Song song5 = new Song("Forever Love", 34.56);
-        Song song6 = new Song("Michelle Mabelle", 34.56);
-        Song song7 = new Song("Kindergartenparty", 34.56);
-        Song song8 = new Song("Morgen kommt der Weihnachtsmann", 34.56);
+        startApp();
+    }
+
+    public static void startApp(){
+
+        Song toHell = new Song("Highway to Hell", 34.56);
+        Song oldMac = new Song("Old Mac Donald has a farm", 34.56);
+        Song peaceTrain = new Song("Peacetrain", 34.56);
+        Song forgotten = new Song("Forgotten", 34.56);
+        Song foreverLove = new Song("Forever Love", 34.56);
+        Song michelleMabelle = new Song("Michelle Mabelle", 34.56);
+        Song kindergartenparty = new Song("Kindergartenparty", 34.56);
+        Song weihnachtsmann = new Song("Morgen kommt der Weihnachtsmann", 34.56);
 
 
         Album albumA = new Album("my Album A");
-        albumA.addSong(song1);
-        albumA.addSong(song1);
-        albumA.addSong(song2);
-        albumA.addSong(song3);
-        albumA.addSong(song4);
+        albumA.addSong(toHell);
+        albumA.addSong(toHell);
+        albumA.addSong(oldMac);
+        albumA.addSong(peaceTrain);
+        albumA.addSong(forgotten);
 
         Album albumB = new Album("my Album B");
-        albumA.addSong(song6);
-        albumA.addSong(song7);
-        albumA.addSong(song8);
+        albumB.addSong(michelleMabelle);
+        albumB.addSong(kindergartenparty);
+        albumB.addSong(weihnachtsmann);
 
         ArrayList<Album> albums = new ArrayList<Album>();
+        albums.add(albumA);
+        albums.add(albumB);
 
+        Playlist playlist = new Playlist();
+        playlist.addSong(michelleMabelle, albumB);
+        playlist.addSong(peaceTrain, albumA);
+        playlist.addSong(oldMac, albumA);
+        playlist.addSong(kindergartenparty, albumB);
+        playlist.addSong(toHell, albumA);
+
+        printPlaylistOptions();
+
+        boolean quit = false;
+        while (!quit){
+
+            System.out.println("What do you want to do?");
+            int option = scanner.nextInt();
+
+            switch(option){
+                case 0 :
+                    quit = true;
+                    break;
+                case 1:
+                    playlist.printPlaylist();
+                    break;
+                case 2:
+                    System.out.println("play: " + playlist.playNextSong().getTitle());
+                    break;
+                case 3:
+                    System.out.println("play: " + playlist.playPreviousSong().getTitle());
+                    break;
+                case 4:
+                    System.out.println("play: " + playlist.replayCurrentSong().getTitle());
+                    break;
+                case 5:
+                    playlist.removeCurrentSongFromPlaylist();
+                    break;
+                default:
+                    printPlaylistOptions();
+                    break;
+            }
+        }
     }
 
-    public void startApp(){
-        playlist = new LinkedList<Song>();
-
-        playlist.addSong(Song newSong)
-    }
-
-    public void printMainOptions(){
+    public static void printPlaylistOptions(){
         System.out.println("Your options: \n");
         System.out.println("Press 0: To quit.");
-        System.out.println("Press 1: To travel forward.");
-        System.out.println("Press 2: To travel backwards.");
-        System.out.println("Press 3: To print the options.");
-    }
-
-    public void addSongToPlayList(Song newSong){
-
-    }
-
-    public void deleteSongFromPlayList(Song newSong) {
-
-    }
-
-    public void showPlayListMenu(){
-
-    }
-
-    public void quitSong(){
-
-    }
-
-    public void forwardToNextSong(){
-
-    }
-
-    public void backwardsToPreviousSong(){
-
-    }
-
-    public void ReplacCurrentSong(){
-
-    }
-
-    public void printPlayList(){
-
-    }
-
-    public void addSongToPlaylist(){
-
-    }
-
-    public void removeCurrentSongFromPlaylist(){
-
+        System.out.println("Press 1: To list all songs in the playlist.");
+        System.out.println("Press 2: To play next song.");
+        System.out.println("Press 3: To play previous song.");
+        System.out.println("Press 4: To replay current song.");
     }
 }
