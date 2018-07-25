@@ -90,5 +90,6 @@ public class PlaylistApp {
         System.out.println("Press 2: To play next song.");
         System.out.println("Press 3: To play previous song.");
         System.out.println("Press 4: To replay current song.");
+        // TODO option 5 missing
     }
 }

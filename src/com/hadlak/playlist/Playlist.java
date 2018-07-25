@@ -6,7 +6,7 @@ import java.util.ListIterator;
 public class Playlist extends LinkedList<Song>{
 
     private ListIterator<Song> playlistIterator;
-    private boolean playedForwardLastTime;
+    private boolean playedForwardLastTime; // man könnte auch den current song speichern ;-)
 
     public Playlist() {
         super();
@@ -14,7 +14,7 @@ public class Playlist extends LinkedList<Song>{
     }
 
     public boolean addSong(Song song, Album album){
-        if (album.doesContainSong(song)){
+        if (album.containsSong(song)){
             add(song);
             return true;
         } else {
@@ -23,6 +23,7 @@ public class Playlist extends LinkedList<Song>{
     }
 
     public void printPlaylist(){
+        // besser for (Song song : this)
         ListIterator<Song> iterator = super.listIterator();
         int count = 0;
         while (iterator.hasNext()){

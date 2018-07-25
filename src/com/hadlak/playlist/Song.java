@@ -17,6 +17,11 @@ public class Song {
         return title;
     }
 
+    @Override
+    public String toString() {
+        return this.title + ": " + this.duration;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }

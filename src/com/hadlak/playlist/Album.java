@@ -6,6 +6,7 @@ import java.util.ListIterator;
 public class Album {
 
     private String name;
+    private String artist;
     private LinkedList<Song> songs;
 
     public Album(String name) {
@@ -21,24 +22,39 @@ public class Album {
         return songs;
     }
 
-    public boolean addSong(Song newSong){
+    public boolean addSong(Song newSong) {
 
-        if (songs.contains(newSong)){
+        if (containsSong(newSong)) {
             return false;
-        } else {
-            songs.add(newSong);
-            return true;
         }
+        songs.add(newSong);
+        return true;
+
     }
 
-    public boolean doesContainSong(Song song){
-        ListIterator<Song> iterator = songs.listIterator();
-        while (iterator.hasNext()){
-            if (iterator.next().equals(song)){
+    public boolean addSong(String title, double duration) {
+        return addSong(new Song(title, duration));
+    }
+
+    public boolean addSongToPlaylist(Song song, LinkedList<Song> playlist){
+        if (containsSong(song)){
+            playlist.add(song);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean containsSong(Song song) {
+        // short: return songs.contains(song);
+
+        for (Song s : this.songs) {
+            if (s.equals(song)) {
                 return true;
             }
         }
+
         return false;
+
     }
 
 }
