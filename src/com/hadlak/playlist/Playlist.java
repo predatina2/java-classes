@@ -23,14 +23,14 @@ public class Playlist extends LinkedList<Song>{
     }
 
     public void printPlaylist(){
-        // besser for (Song song : this)
-        ListIterator<Song> iterator = super.listIterator();
         int count = 0;
-        while (iterator.hasNext()){
+        System.out.println("#########################################");
+        for (Song s : this){
             count ++;
-            Song song = iterator.next();
-            System.out.println(count + ". Title: " + song.getTitle() + " duration: " + song.getDuration());
+            System.out.println(count + ". Title: " + s.getTitle() + " duration: "
+                    + s.getDuration());
         }
+        System.out.println("#########################################");
     }
 
     public Song playNextSong(){
