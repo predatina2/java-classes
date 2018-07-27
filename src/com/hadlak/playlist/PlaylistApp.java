@@ -4,6 +4,7 @@ import sun.awt.image.ImageWatched;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 public class PlaylistApp {
@@ -38,7 +39,7 @@ public class PlaylistApp {
         albumB.addSong(kindergartenparty);
         albumB.addSong(weihnachtsmann);
 
-        ArrayList<Album> albums = new ArrayList<Album>();
+        List<Album> albums = new ArrayList<Album>();
         albums.add(albumA);
         albums.add(albumB);
 
@@ -90,6 +91,6 @@ public class PlaylistApp {
         System.out.println("Press 2: To play next song.");
         System.out.println("Press 3: To play previous song.");
         System.out.println("Press 4: To replay current song.");
-        // TODO option 5 missing
+        System.out.println("Press 5: To remove current song from playlist.");
     }
 }

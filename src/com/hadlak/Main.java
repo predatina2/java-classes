@@ -1,11 +1,11 @@
 package com.hadlak;
 
-import com.hadlak.banking.Bank;
-import com.hadlak.banking.BankingApp;
-import com.hadlak.banking.Customer;
+import com.hadlak.mobile_phone.DeskPhone;
+import com.hadlak.mobile_phone.ITelephone;
+import com.hadlak.mobile_phone.MobilePhone;
 import com.hadlak.vehicle.Vehicle;
 
-import java.util.ArrayList;
+import java.util.Iterator;
 
 
 public class Main {
@@ -16,9 +16,15 @@ public class Main {
 
     public static void main(String[] args) {
 
-        ITelephone myPhone = new DeskPhone(12334324324);
+        ITelephone myPhone = new DeskPhone(1234324);
+        myPhone.powerOn();
+        myPhone.callPhone(1234324);
+        myPhone.answer();
 
-
+        ITelephone myNewPhone = new MobilePhone(3423623);
+        myNewPhone.powerOn();
+        myNewPhone.callPhone(3423623);
+        myNewPhone.answer();
     }
 
 

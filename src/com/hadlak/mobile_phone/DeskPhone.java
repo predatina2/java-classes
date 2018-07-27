@@ -1,4 +1,6 @@
-package com.hadlak;
+package com.hadlak.mobile_phone;
+
+import com.hadlak.mobile_phone.ITelephone;
 
 public class DeskPhone implements ITelephone {
 
@@ -22,17 +24,25 @@ public class DeskPhone implements ITelephone {
     @Override
     public void answer() {
         if (isRinging){
-            System.out.println("Now ringing " + phoneNumber + " on deskphone");
+            System.out.println("Answering the deskphone");
+            isRinging = false;
         }
     }
 
     @Override
     public boolean callPhone(int phoneNumber) {
-        return false;
+
+        if (phoneNumber == myNumber) {
+            isRinging = true;
+            System.out.println("ring ring");
+        } else{
+            isRinging = false;
+        }
+        return isRinging;
     }
 
     @Override
     public boolean isRinging() {
-        return false;
+        return isRinging;
     }
 }

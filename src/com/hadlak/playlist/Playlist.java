@@ -1,21 +1,24 @@
 package com.hadlak.playlist;
 
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ListIterator;
 
-public class Playlist extends LinkedList<Song>{
+public class Playlist{
 
-    private ListIterator<Song> playlistIterator;
+    private List<Song> playlist;
+    private Iterator<Song> playlistIterator;
     private boolean playedForwardLastTime; // man könnte auch den current song speichern ;-)
 
     public Playlist() {
-        super();
-        playlistIterator = super.listIterator();
+        this.playlist = new LinkedList<>();
+        this.playlistIterator = playlist.listIterator();
     }
 
     public boolean addSong(Song song, Album album){
         if (album.containsSong(song)){
-            add(song);
+            this.playlist.add(song);
             return true;
         } else {
             return false;
@@ -25,7 +28,7 @@ public class Playlist extends LinkedList<Song>{
     public void printPlaylist(){
         int count = 0;
         System.out.println("#########################################");
-        for (Song s : this){
+        for (Song s : this.playlist){
             count ++;
             System.out.println(count + ". Title: " + s.getTitle() + " duration: "
                     + s.getDuration());
@@ -34,7 +37,7 @@ public class Playlist extends LinkedList<Song>{
     }
 
     public Song playNextSong(){
-        if (playlistIterator.hasNext()){
+        if (this.playlistIterator.hasNext()){
             playedForwardLastTime = true;
             return playlistIterator.next();
         }
@@ -42,7 +45,7 @@ public class Playlist extends LinkedList<Song>{
     }
 
     public Song playPreviousSong() {
-        if (playlistIterator.hasPrevious()){
+        if (this.playlistIterator.hasPrevious){
             playedForwardLastTime = false;
             return playlistIterator.previous();
         }
@@ -62,7 +65,7 @@ public class Playlist extends LinkedList<Song>{
     }
 
     public boolean removeCurrentSongFromPlaylist(){
-        return remove(replayCurrentSong());
+        return this.playlist.remove(replayCurrentSong());
     }
 
 }

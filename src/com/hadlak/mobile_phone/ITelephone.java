@@ -1,4 +1,4 @@
-package com.hadlak;
+package com.hadlak.mobile_phone;
 
 public interface ITelephone {
 

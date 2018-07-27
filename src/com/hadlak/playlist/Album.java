@@ -1,13 +1,14 @@
 package com.hadlak.playlist;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ListIterator;
 
 public class Album {
 
     private String name;
     private String artist;
-    private LinkedList<Song> songs;
+    private List<Song> songs;
 
     public Album(String name) {
         this(name, new LinkedList<Song>());
@@ -18,7 +19,7 @@ public class Album {
         this.songs = songs;
     }
 
-    public LinkedList<Song> getSongs() {
+    public List<Song> getSongs() {
         return songs;
     }
 
@@ -36,7 +37,7 @@ public class Album {
         return addSong(new Song(title, duration));
     }
 
-    public boolean addSongToPlaylist(Song song, LinkedList<Song> playlist){
+    public boolean addSongToPlaylist(Song song, List<Song> playlist){
         if (containsSong(song)){
             playlist.add(song);
             return true;
