@@ -3,15 +3,13 @@ package com.hadlak.game;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player extends Character implements ISaveable {
+public class Monster extends Character implements ISaveable {
 
-    /* this is a NEGATIVE code example <-- anti encapsulation !!!! */
+    private String specialMove;
 
-    private String specialSkill;
-
-    public Player(String name, int health, String weapon, String specialSkill) {
+    public Monster(String name, int health, String weapon, String specialMove) {
         super(name, health, weapon);
-        this.specialSkill = specialSkill;
+        this.specialMove = specialMove;
     }
 
     @Override
@@ -30,22 +28,24 @@ public class Player extends Character implements ISaveable {
     @Override
     public boolean updateFromList(List<Character> list) {
         for (int i = 0; i < list.size(); i++){
-            Player comparable = (Player) list.get(i);
+            Monster comparable = (Monster) list.get(i);
             if (comparable.toString().equals(this.toString())){
                 this.setHealth(comparable.getHealth());
                 this.setWeapon(comparable.getWeapon());
-                this.setSpecialSkill(comparable.getSpecialSkill());
+                this.setSpecialMove(comparable.getSpecialMove());
                 return true;
             }
         }
         return false;
     }
 
-    public String getSpecialSkill() {
-        return specialSkill;
+    public String getSpecialMove() {
+        return specialMove;
     }
 
-    public void setSpecialSkill(String specialSkill) {
-        this.specialSkill = specialSkill;
+    public void setSpecialMove(String specialMove) {
+        this.specialMove = specialMove;
     }
+
+
 }

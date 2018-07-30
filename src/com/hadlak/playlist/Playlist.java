@@ -8,11 +8,11 @@ import java.util.ListIterator;
 public class Playlist{
 
     private List<Song> playlist;
-    private Iterator<Song> playlistIterator;
+    private ListIterator<Song> playlistIterator;
     private boolean playedForwardLastTime; // man könnte auch den current song speichern ;-)
 
     public Playlist() {
-        this.playlist = new LinkedList<>();
+        this.playlist = new LinkedList<Song>();
         this.playlistIterator = playlist.listIterator();
     }
 
@@ -45,7 +45,7 @@ public class Playlist{
     }
 
     public Song playPreviousSong() {
-        if (this.playlistIterator.hasPrevious){
+        if (this.playlistIterator.hasPrevious()){
             playedForwardLastTime = false;
             return playlistIterator.previous();
         }
