@@ -3,32 +3,36 @@ package com.hadlak.game;
 public class Character {
 
     private String name;
-    private int health;
+    private int strength;
     private String weapon;
+    private int hitPoints;
 
-    public Character(String name, int health, String weapon) {
+    public Character(String name, int hitPoints, int strength) {
         this.name = name;
-        this.health = health;
-        this.weapon = weapon;
+        this.strength = strength;
+        this.hitPoints = hitPoints;
+        this.weapon = "stick";
+
     }
 
-    public void loseHealth(int damage){
-        this.health = this.health - damage;
-        if (this.health <= 0) {
+    public void loseHealth(int damage) {
+        this.hitPoints += damage;
+        if (this.hitPoints >= this.strength){
+            this.hitPoints = this.strength;
             System.out.println(name + "knocked out");
         }
     }
 
-    public int healthRemaining() {
-        return this.health;
+    public int getRemainingHealth() {
+        return this.strength - this.hitPoints;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getHealth() {
-        return health;
+    public int getStrength() {
+        return strength;
     }
 
     public String getWeapon() {
@@ -39,12 +43,20 @@ public class Character {
         this.name = name;
     }
 
-    public void setHealth(int health) {
-        this.health = health;
+    public void setStrength(int strength) {
+        this.strength = strength;
     }
 
     public void setWeapon(String weapon) {
         this.weapon = weapon;
+    }
+
+    public int getHitPoints() {
+        return hitPoints;
+    }
+
+    public void setHitPoints(int hitPoints) {
+        this.hitPoints = hitPoints;
     }
 
     @Override

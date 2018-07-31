@@ -1,5 +1,6 @@
 package com.hadlak;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -126,6 +127,37 @@ public final class Utilities {
             }
         }
         return max;
+    }
+
+    public static ArrayList<String> readValues(){
+
+        var values = new ArrayList<String>();
+
+        var scanner = new Scanner(System.in);
+        var quit = false;
+        var index = 0;
+        System.out.println("Choose\n" +
+                            "1 to enter a string\n" +
+                            "2 to quit");
+
+        while (!quit){
+            System.out.print("Choose an option: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+            switch (choice){
+                case 0:
+                    quit = true;
+                    break;
+                case 1:
+                    System.out.print("Enter a string: ");
+                    var stringInput = scanner.nextLine();
+                    values.add(index, stringInput);
+                    index++;
+                    break;
+                    default:break;
+            }
+        }
+        return values;
     }
 
 }

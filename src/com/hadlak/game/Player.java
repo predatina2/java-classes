@@ -9,8 +9,8 @@ public class Player extends Character implements ISaveable {
 
     private String specialSkill;
 
-    public Player(String name, int health, String weapon, String specialSkill) {
-        super(name, health, weapon);
+    public Player(String name, int hitPoints, int strength, String specialSkill) {
+        super(name, hitPoints, strength);
         this.specialSkill = specialSkill;
     }
 
@@ -32,7 +32,7 @@ public class Player extends Character implements ISaveable {
         for (int i = 0; i < list.size(); i++){
             Player comparable = (Player) list.get(i);
             if (comparable.toString().equals(this.toString())){
-                this.setHealth(comparable.getHealth());
+                this.setStrength(comparable.getStrength());
                 this.setWeapon(comparable.getWeapon());
                 this.setSpecialSkill(comparable.getSpecialSkill());
                 return true;
@@ -47,5 +47,38 @@ public class Player extends Character implements ISaveable {
 
     public void setSpecialSkill(String specialSkill) {
         this.specialSkill = specialSkill;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + super.getName() +'\"' +
+                "hitPoints='" + super.getHitPoints() +'\"' +
+                "strength='" + super.getStrength() +'\"' +
+                "weapon='" + super.getWeapon() +'\"' +
+                "specialSkill='" + specialSkill + '\'' +
+                '}';
+    }
+
+    @Override
+    public List<String> write() {
+        var values = new ArrayList<String>();
+        values.add(0, super.getName());
+        values.add(1, String.valueOf(super.getHitPoints()));
+        values.add(2, String.valueOf(super.getStrength()));
+        values.add(3, super.getWeapon());
+        values.add(4, this.specialSkill);
+        return values;
+    }
+
+    @Override
+    public void read(List<String> savedValues) {
+        if (savedValues != null && savedValues.size() == 5){
+            super.setName(savedValues.get(0));
+            super.setHitPoints(Integer.valueOf(savedValues.get(1)).intValue());
+            super.setStrength(Integer.valueOf(savedValues.get(2)).intValue());
+            super.setWeapon(savedValues.get(3));
+            this.specialSkill = savedValues.get(4);
+        }
     }
 }
