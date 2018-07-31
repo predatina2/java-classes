@@ -11,5 +11,5 @@ public interface ISaveable {
 
     List<String> write();
 
-    void read(List<String> savedValues);
+    boolean read(List<String> savedValues);
 }

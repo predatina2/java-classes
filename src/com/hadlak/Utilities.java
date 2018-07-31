@@ -142,19 +142,23 @@ public final class Utilities {
 
         while (!quit){
             System.out.print("Choose an option: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine();
-            switch (choice){
-                case 0:
-                    quit = true;
-                    break;
-                case 1:
-                    System.out.print("Enter a string: ");
-                    var stringInput = scanner.nextLine();
-                    values.add(index, stringInput);
-                    index++;
-                    break;
+            try{
+                int choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice){
+                    case 0:
+                        quit = true;
+                        break;
+                    case 1:
+                        System.out.print("Enter a string: ");
+                        var stringInput = scanner.nextLine();
+                        values.add(index, stringInput);
+                        index++;
+                        break;
                     default:break;
+                }
+            } catch(Exception e){
+                scanner.nextLine();
             }
         }
         return values;

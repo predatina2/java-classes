@@ -7,11 +7,13 @@ public class Player extends Character implements ISaveable {
 
     /* this is a NEGATIVE code example <-- anti encapsulation !!!! */
 
+    private String weapon;
     private String specialSkill;
 
     public Player(String name, int hitPoints, int strength, String specialSkill) {
         super(name, hitPoints, strength);
         this.specialSkill = specialSkill;
+        this.weapon = "Sword";
     }
 
     @Override
@@ -29,12 +31,12 @@ public class Player extends Character implements ISaveable {
 
     @Override
     public boolean updateFromList(List<Character> list) {
+        if (!super.updateFromList(list)) return false;
         for (int i = 0; i < list.size(); i++){
             Player comparable = (Player) list.get(i);
             if (comparable.toString().equals(this.toString())){
-                this.setStrength(comparable.getStrength());
-                this.setWeapon(comparable.getWeapon());
-                this.setSpecialSkill(comparable.getSpecialSkill());
+                this.weapon = comparable.getWeapon();
+                this.specialSkill = comparable.getSpecialSkill();
                 return true;
             }
         }
@@ -49,36 +51,44 @@ public class Player extends Character implements ISaveable {
         this.specialSkill = specialSkill;
     }
 
+    public String getWeapon() {
+        return weapon;
+    }
+
+    public void setWeapon(String weapon) {
+        this.weapon = weapon;
+    }
+
     @Override
     public String toString() {
-        return "Player{" +
-                "name='" + super.getName() +'\"' +
-                "hitPoints='" + super.getHitPoints() +'\"' +
-                "strength='" + super.getStrength() +'\"' +
-                "weapon='" + super.getWeapon() +'\"' +
-                "specialSkill='" + specialSkill + '\'' +
+        var stringText = super.toString();
+        stringText = stringText.replace("Character", "Player");
+        stringText = stringText.substring(0, stringText.length() - 1);
+        stringText +=
+                ", weapon='" + this.getWeapon() +'\'' +
+                ", specialSkill='" + this.specialSkill + '\'' +
                 '}';
+        return stringText;
     }
 
     @Override
     public List<String> write() {
-        var values = new ArrayList<String>();
-        values.add(0, super.getName());
-        values.add(1, String.valueOf(super.getHitPoints()));
-        values.add(2, String.valueOf(super.getStrength()));
-        values.add(3, super.getWeapon());
-        values.add(4, this.specialSkill);
+        var values = super.write();
+        var size = values.size();
+
+        values.add(size, this.weapon);
+        values.add(size + 1, this.specialSkill);
         return values;
     }
 
     @Override
-    public void read(List<String> savedValues) {
+    public boolean read(List<String> savedValues) {
+        if (!super.read(savedValues)) return false;
         if (savedValues != null && savedValues.size() == 5){
-            super.setName(savedValues.get(0));
-            super.setHitPoints(Integer.valueOf(savedValues.get(1)).intValue());
-            super.setStrength(Integer.valueOf(savedValues.get(2)).intValue());
-            super.setWeapon(savedValues.get(3));
+            this.weapon = savedValues.get(3);
             this.specialSkill = savedValues.get(4);
+            return true;
         }
+        return false;
     }
 }

@@ -27,12 +27,11 @@ public class Monster extends Character implements ISaveable {
 
     @Override
     public boolean updateFromList(List<Character> list) {
+        if (!super.updateFromList(list)) return false;
         for (int i = 0; i < list.size(); i++){
             Monster comparable = (Monster) list.get(i);
             if (comparable.toString().equals(this.toString())){
-                this.setStrength(comparable.getStrength());
-                this.setWeapon(comparable.getWeapon());
-                this.setSpecialMove(comparable.getSpecialMove());
+                this.specialMove = comparable.getSpecialMove();
                 return true;
             }
         }
@@ -49,35 +48,32 @@ public class Monster extends Character implements ISaveable {
 
     @Override
     public String toString() {
-        return "Monster{" +
-                "name='" + super.getName() +'\"' +
-                "hitPoints='" + super.getHitPoints() +'\"' +
-                "strength='" + super.getStrength() +'\"' +
-                "weapon='" + super.getWeapon() +'\"' +
-                "specialMove='" + specialMove + '\'' +
-                '}';
+        var stringText = super.toString();
+        stringText.replace("Character", "Monster");
+        stringText = stringText.substring(0, stringText.length() - 1);
+        stringText +=
+                        ", specialMove='" + this.specialMove + '\'' +
+                        '}'; // TODO has to be replaced
+        return stringText;
     }
 
     @Override
     public List<String> write() {
-        var values = new ArrayList<String>();
-        values.add(0, super.getName());
-        values.add(1, String.valueOf(super.getHitPoints()));
-        values.add(2, String.valueOf(super.getStrength()));
-        values.add(3, super.getWeapon());
-        values.add(4, this.specialMove);
+        var values = super.write();
+        var size = values.size();
+
+        values.add(size, this.specialMove);
         return values;
     }
 
     @Override
-    public void read(List<String> savedValues) {
-        if (savedValues != null && savedValues.size() == 5){
-            super.setName(savedValues.get(0));
-            super.setHitPoints(Integer.valueOf(savedValues.get(1)).intValue());
-            super.setStrength(Integer.valueOf(savedValues.get(2)).intValue());
-            super.setWeapon(savedValues.get(3));
-            this.specialMove = savedValues.get(4);
+    public boolean read(List<String> savedValues) {
+        if (!super.read(savedValues)) return false;
+        if (savedValues != null && savedValues.size() == 4){
+            this.specialMove = savedValues.get(3);
+            return true;
         }
+        return false;
     }
 
 

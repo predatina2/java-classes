@@ -1,6 +1,9 @@
 package com.hadlak.game;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import static com.hadlak.Utilities.readValues;
 
 public class GameApp {
 
@@ -13,6 +16,17 @@ public class GameApp {
         var player2 = new Player("Anja Haudrauf", 0,20, "Slashing");
         var player3 = new Player("Tritt Mich", 0,80, "Stopping hard units");
         var player4 = new Player("Melodie Pea", 0,15, "Jumping high");
+
+        System.out.println(player1.toString());
+        System.out.println(player2.toString());
+        System.out.println(player3.toString());
+        System.out.println(player4.toString());
+
+        player1.setWeapon("Stormbringer");
+        saveObject(player1);
+        loadObject(player1);
+        System.out.println(player1);
+
 
         players.add(player1);
         players.add(player2);
@@ -42,12 +56,17 @@ public class GameApp {
 
     }
 
-    public static void saveObject(ISaveable objectToSave){
-
+    public static List<String> saveObject(ISaveable objectToSave){
+        List<String> values = objectToSave.write();
+        for (int i= 0; i < values.size(); i++){
+            System.out.println("Saving " + values.get(i) + " to storage device");
+        }
+        return values;
     }
 
     public static void loadObject(ISaveable objectToLoad){
-
+        ArrayList<String> values = readValues();
+        objectToLoad.read(values);
     }
 
 
