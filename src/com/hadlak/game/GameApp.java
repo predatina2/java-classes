@@ -33,12 +33,13 @@ public class GameApp {
         players.add(player3);
         players.add(player4);
 
-        var monster1 = new Monster("Hard Peter",0 ,300, "very Big");
+        ISaveable monster1 = new Monster("Werewolf",0 ,300, "very Big");
+        System.out.println("strength of monster: " + ((Monster) monster1).getStrength());
         var monster2 = new Monster("little Spider", 0,60, "comes around you");
         var monster3 = new Monster("Magician",0 ,40, "invisible");
         var monster4 = new Monster("Birdy",0 ,80, "can attack from air");
 
-        monsters.add(monster1);
+        // monsters.add(monster1);
         monsters.add(monster2);
         monsters.add(monster3);
         monsters.add(monster4);

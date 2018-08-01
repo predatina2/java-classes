@@ -53,7 +53,7 @@ public class Monster extends Character implements ISaveable {
         stringText = stringText.substring(0, stringText.length() - 1);
         stringText +=
                         ", specialMove='" + this.specialMove + '\'' +
-                        '}'; // TODO has to be replaced
+                        '}';
         return stringText;
     }
 
