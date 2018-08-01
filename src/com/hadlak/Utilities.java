@@ -131,6 +131,7 @@ public final class Utilities {
 
     public static ArrayList<String> readValues(){
 
+
         var values = new ArrayList<String>();
 
         var scanner = new Scanner(System.in);
