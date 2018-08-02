@@ -25,7 +25,7 @@ public class Album {
 
     public boolean addSong(Song newSong) {
 
-       return songs.addSong(newSong);
+        return songs.addSong(newSong);
 
     }
 
@@ -33,12 +33,31 @@ public class Album {
         return songs.addSong(new Song(title, duration));
     }
 
-    public boolean addSongToPlaylist(Song song, List<Song> playlist){
-        if (songs.containsSong(song)){
+    public List<Song> addSongToPlaylist(Song song, List<Song> playlist) {
+        if (songs.containsSong(song) && !playlist.contains(song)) {
             playlist.add(song);
-            return true;
         }
-        return false;
+        return playlist;
+    }
+
+    public List<Song> addSongToPlaylist(String title, List<Song> playlist) {
+        Song song = songs.findSong(title);
+        if (song != null && !playlist.contains(song)) {
+            playlist.add(song);
+        }
+        return playlist;
+    }
+
+    public List<Song> addSongToPlaylist(int trackNumber, List<Song> playlist) {
+        Song song = songs.findSong(trackNumber);
+        if (song != null && !playlist.contains(song)) {
+            playlist.add(song);
+        }
+        return playlist;
+    }
+
+    private boolean doesSongExistInPlaylist(Song song, List<Song> playlist){
+        return playlist.contains(song);
     }
 
     public boolean containsSong(Song song) {
@@ -46,8 +65,7 @@ public class Album {
     }
 
 
-
-    private class SongList{
+    private class SongList {
         private List<Song> songs;
 
         public SongList(List<Song> songs) {
@@ -79,6 +97,27 @@ public class Album {
 
             return false;
 
+        }
+
+        public Song findSong(String title) {
+
+            for (Song s : this.songs
+                    ) {
+                if (s.getTitle().equals(title)) {
+                    return s;
+                }
+
+            }
+            return null;
+        }
+
+        public Song findSong(int trackNumber) {
+            int index = trackNumber - 1;
+            if (index >= 0 && index < this.songs.size()) {
+                return this.songs.get(index);
+            } else {
+                return null;
+            }
         }
     }
 
