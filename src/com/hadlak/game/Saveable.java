@@ -3,7 +3,7 @@ package com.hadlak.game;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface ISaveable {
+public interface Saveable {
 
     List<Character> saveToList(List<Character> list);
 

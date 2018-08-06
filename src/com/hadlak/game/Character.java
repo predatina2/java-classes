@@ -1,10 +1,9 @@
 package com.hadlak.game;
 
-import java.time.chrono.IsoChronology;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Character implements ISaveable {
+public abstract class Character implements Saveable {
 
     private String name;
     private int strength;

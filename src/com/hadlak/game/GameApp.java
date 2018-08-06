@@ -33,7 +33,7 @@ public class GameApp {
         players.add(player3);
         players.add(player4);
 
-        ISaveable monster1 = new Monster("Werewolf",0 ,300, "very Big");
+        Saveable monster1 = new Monster("Werewolf",0 ,300, "very Big");
         System.out.println("strength of monster: " + ((Monster) monster1).getStrength());
         var monster2 = new Monster("little Spider", 0,60, "comes around you");
         var monster3 = new Monster("Magician",0 ,40, "invisible");
@@ -57,7 +57,7 @@ public class GameApp {
 
     }
 
-    public static List<String> saveObject(ISaveable objectToSave){
+    public static List<String> saveObject(Saveable objectToSave){
         List<String> values = objectToSave.write();
         for (int i= 0; i < values.size(); i++){
             System.out.println("Saving " + values.get(i) + " to storage device");
@@ -65,7 +65,7 @@ public class GameApp {
         return values;
     }
 
-    public static void loadObject(ISaveable objectToLoad){
+    public static void loadObject(Saveable objectToLoad){
         ArrayList<String> values = readValues();
         objectToLoad.read(values);
     }

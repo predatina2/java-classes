@@ -1,9 +1,8 @@
 package com.hadlak.game;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Player extends Character implements ISaveable {
+public class Player extends Character implements Saveable {
 
     /* this is a NEGATIVE code example <-- anti encapsulation !!!! */
 

@@ -1,9 +1,8 @@
 package com.hadlak.game;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Monster extends Character implements ISaveable {
+public class Monster extends Character implements Saveable {
 
     private String specialMove;
 
