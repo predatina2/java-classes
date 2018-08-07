@@ -6,10 +6,7 @@ public abstract class MyListItem {
     private MyListItem previousListItem;
     private MyListItem nextListItem;
 
-    public MyListItem(Object itsValue, MyListItem previousListItem, MyListItem nextListItem) {
-        this.itsValue = itsValue;
-        this.previousListItem = previousListItem;
-        this.nextListItem = nextListItem;
+    public MyListItem(Object itsValue) {
     }
 
     public Object getItsValue() {
@@ -55,6 +52,8 @@ public abstract class MyListItem {
     public abstract boolean setNextItem(MyListItem nextListItem);
 
     public abstract boolean setPreviousItem(MyListItem previousListItem);
+
+    public abstract void printList();
 
 
 
