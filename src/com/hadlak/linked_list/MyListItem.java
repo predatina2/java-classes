@@ -7,6 +7,7 @@ public abstract class MyListItem {
     private MyListItem nextListItem;
 
     public MyListItem(Object itsValue) {
+        this.itsValue = itsValue;
     }
 
     public Object getItsValue() {
