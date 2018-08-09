@@ -2,13 +2,8 @@ package com.hadlak.linked_list;
 
 public class ListItem extends MyListItem {
 
-    public ListItem(Object value) {
+    public ListItem(int value) {
         super(value);
-    }
-
-    @Override
-    public boolean addListItem(MyListItem newItem) {
-        return false;
     }
 
     @Override

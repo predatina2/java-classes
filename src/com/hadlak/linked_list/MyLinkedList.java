@@ -7,12 +7,70 @@ public class MyLinkedList {
     public MyLinkedList() {
     }
 
-    public boolean addListItem(MyListItem newItem){
+    public boolean addListItem(ListItem newItem){
+        System.out.println("add item");
+        if (newItem == null) return false;
+        if (currentItem == null) {
+            currentItem = newItem;
+            return true;
+        }
+        boolean findAddPosition = false;
+        int newValue = (int) newItem.getValue();
+
+        while (!findAddPosition){
+            int currentValue = (int) currentItem.getValue();
+            if (newValue == currentValue){
+                System.out.println("values already in list: " + newValue);
+                return false;
+            } else if (newValue > currentValue){
+                if (currentItem.getNextItem() == null){
+                    currentItem.setNextItem(newItem);
+                    newItem.setPreviousItem(currentItem);
+                    System.out.println("add " + newValue);
+                    findAddPosition = true;
+                } else {
+                    int nextValue = (int) currentItem.getNextItem().getValue();
+                    if (newValue < nextValue){
+                        newItem.setNextItem(currentItem.getNextItem());
+                        newItem.setPreviousItem(currentItem);
+                        currentItem.setNextItem(newItem);
+                        System.out.println("add " + newValue);
+                        findAddPosition = true;
+                    } else {
+                        currentItem = currentItem.getNextItem();
+                    }
+                }
+            } else {
+                if (currentItem.getPreviousItem() == null){
+                    currentItem.setPreviousItem(newItem);
+                    newItem.setNextItem(currentItem);
+                    System.out.println("add " + newValue);
+                    findAddPosition = true;
+                } else {
+                    int previousValue = (int) currentItem.getPreviousItem().getValue();
+                    if (newValue > previousValue){
+                        newItem.setPreviousItem(currentItem.getPreviousItem());
+                        newItem.setNextItem(currentItem);
+                        currentItem.setPreviousItem(newItem);
+                        System.out.println("add " + newValue);
+                        findAddPosition = true;
+                    } else {
+                        currentItem = currentItem.getPreviousItem();
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
+    /*
+    public boolean addListItem(MyListItem newItem) {
 
         if (newItem == null) {
             return false;
         }
-        if (currentItem == null){
+        if (currentItem == null) {
             currentItem = newItem;
             return true;
         }
@@ -23,82 +81,63 @@ public class MyLinkedList {
 
         MyListItem nextItem = null;
         if (currentItem.getNextItem() != null) {
-            nextItem = (MyLinkedList) getNextItem();
+            nextItem = currentItem.getNextItem();
         }
 
         MyListItem previousItem = null;
-        if (getPreviousItem() != null) {
-            previousItem = (MyLinkedList) getPreviousItem();
+        if (currentItem.getPreviousItem() != null) {
+            previousItem = currentItem.getPreviousItem();
         }
-        try {
-            if (currentValue == newValue) {
-                return false;
+
+        if (currentValue == newValue) {
+            return false;
+        }
+        if (currentValue < newValue) {
+            if (nextItem == null) {
+                newItem.setPreviousItem(currentItem);
+                currentItem.setNextItem(newItem);
+            } else if ((int) nextItem.getValue() > newValue) {
+                newItem.setPreviousItem(currentItem);
+                currentItem.setNextItem(newItem);
+                newItem.addListItem(nextItem);
+            } else {
+                nextItem.addListItem(newItem);
             }
-            if (currentValue < newValue) {
-                if (nextItem == null) {
-                    newItem.setPreviousItem(this);
-                    setNextItem(newItem);
-                } else if ((int) nextItem.getValue() > newValue) {
-                    newItem.setPreviousItem(this);
-                    setNextItem(newItem);
-                    newItem.addListItem(nextItem);
-                } else {
-                    nextItem.addListItem(newItem);
-                }
-            } else if (currentValue > newValue) {
-                if (previousItem == null) {
-                    newItem.setNextItem(this);
-                    setPreviousItem(newItem);
-                } else if ((int) previousItem.getValue() < newValue) {
-                    newItem.setNextItem(this);
-                    setPreviousItem(newItem);
-                    newItem.addListItem(previousItem);
-                } else {
-                    previousItem.addListItem(newItem);
-                }
+        } else if (currentValue > newValue) {
+            if (previousItem == null) {
+                newItem.setNextItem(currentItem);
+                currentItem.setPreviousItem(newItem);
+            } else if ((int) previousItem.getValue() < newValue) {
+                newItem.setNextItem(currentItem);
+                currentItem.setPreviousItem(newItem);
+                newItem.addListItem(previousItem);
+            } else {
+                previousItem.addListItem(newItem);
             }
         }
-        catch(Exception e){
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
+
         return true;
     }
+    */
 
-    @Override
-    public void printList(){
-        MyLinkedList firstItem = this;
+    public void printList() {
+        if (currentItem == null) return;
+        // MyListItem firstItem = currentItem;
 
-        while (firstItem.getPreviousItem() != null) {
-            firstItem = (MyLinkedList) firstItem.getPreviousItem();
+        int count = 0;
+
+        while (currentItem.getPreviousItem() != null) {
+            count ++;
+            System.out.println(count);
+            currentItem = currentItem.getPreviousItem();
         }
 
-        MyLinkedList nextItem = firstItem;
-        if (nextItem != null){
-            while (nextItem.getNextItem() != null){
-                nextItem = (MyLinkedList) nextItem.getNextItem();
-                System.out.print((int) nextItem.getValue() + " ");
-            }
+        System.out.print((int)currentItem.getValue());
 
+        while (currentItem.getNextItem() != null) {
+            currentItem = currentItem.getNextItem();
+            System.out.print((int) currentItem.getValue() + " ");
         }
-    }
 
-    @Override
-    public Object getValue() {
-        return super.getValue();
-    }
-
-    @Override
-    public boolean setNextItem(MyListItem nextListItem) {
-        super.setNextItem(nextListItem);
-
-        return false;
-    }
-
-    @Override
-    public boolean setPreviousItem(MyListItem previousListItem) {
-        super.setPreviousItem(previousListItem);
-
-        return false;
     }
 }

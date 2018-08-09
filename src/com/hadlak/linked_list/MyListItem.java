@@ -26,7 +26,7 @@ public abstract class MyListItem {
         return nextItem;
     }
 
-    public abstract boolean addListItem(MyListItem newItem);
+//    public abstract boolean addListItem(MyListItem newItem);
 
     public abstract boolean setNextItem(MyListItem nextListItem);
 
