@@ -2,7 +2,7 @@ package com.hadlak.linked_list;
 
 public abstract class MyListItem {
 
-    private Object value; // just Value
+    private Object value;
     private MyListItem previousItem;
     private MyListItem nextItem;
 
@@ -31,8 +31,6 @@ public abstract class MyListItem {
     public abstract boolean setNextItem(MyListItem nextListItem);
 
     public abstract boolean setPreviousItem(MyListItem previousListItem);
-
-    public abstract void printList();
 
 
 
