@@ -17,6 +17,72 @@ public class MyLinkedList {
             lastItem = newItem;
             return true;
         }
+
+        boolean findAddPosition = false;
+
+        //  System.out.println("Start find add " + newValue + " ");
+
+        while (!findAddPosition){
+            int compare = currentItem.compareTo(newItem);
+            if (compare == 0){
+                // System.out.println("values already in list: " + newValue);
+                return false;
+            } else if (compare > 0){
+                if (currentItem.getNextItem() == null){
+                    currentItem.setNextItem(newItem);
+//                    currentItem.setNextItem(newItem);
+//                    newItem.setPreviousItem(currentItem);
+                    findAddPosition = true;
+                } else {
+                    compare = currentItem.getNextItem().compareTo(newItem);
+                    if (compare < 0){
+                        currentItem.setNextItem(newItem);
+//                        newItem.setNextItem(currentItem.getNextItem());
+//                        newItem.getNextItem().setPreviousItem(newItem);
+//                        newItem.setPreviousItem(currentItem);
+//                        newItem.getPreviousItem().setNextItem(newItem);
+                        // System.out.println("add up between" + newValue);
+                        findAddPosition = true;
+                    } else {
+                        currentItem = currentItem.getNextItem();
+                    }
+                }
+            } else {
+                if (currentItem.getPreviousItem() == null){
+//                    currentItem.setPreviousItem(newItem);
+//                    newItem.setNextItem(currentItem);
+                    currentItem.setPreviousItem(newItem);
+                    // System.out.println("add down last" + newValue);
+                    findAddPosition = true;
+                } else {
+                    compare = currentItem.getPreviousItem().compareTo(newItem);
+                    if (compare > 0){
+                        currentItem.setPreviousItem(newItem);
+//                        newItem.setPreviousItem(currentItem.getPreviousItem());
+//                        newItem.getPreviousItem().setNextItem(newItem);
+//                        newItem.setNextItem(currentItem);
+//                        newItem.getNextItem().setPreviousItem(newItem);
+                        // System.out.println("add down between" + newValue);
+                        findAddPosition = true;
+                    } else {
+                        currentItem = currentItem.getPreviousItem();
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
+    /*
+    public boolean addListItem(ListItem newItem){
+        if (newItem == null) return false;
+        if (currentItem == null) {
+            currentItem = newItem;
+            firstItem = newItem;
+            lastItem = newItem;
+            return true;
+        }
         boolean findAddPosition = false;
         int newValue = (int) newItem.getValue();
          System.out.println("Start find add " + newValue + " ");
@@ -69,7 +135,7 @@ public class MyLinkedList {
         }
 
         return true;
-    }
+    }*/
 
     public void printList() {
         if (currentItem == null) return;

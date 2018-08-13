@@ -28,9 +28,17 @@ public abstract class MyListItem {
 
 //    public abstract boolean addListItem(MyListItem newItem);
 
-    public abstract boolean setNextItem(MyListItem nextListItem);
+    public boolean setNextItem(MyListItem nextItem){
+        this.nextItem = nextItem;
+        return true;
+    }
 
-    public abstract boolean setPreviousItem(MyListItem previousListItem);
+    public boolean setPreviousItem(MyListItem previousItem){
+        this.previousItem = previousItem;
+        return true;
+    }
+
+    public abstract int compareTo(MyListItem listItem);
 
 
 
