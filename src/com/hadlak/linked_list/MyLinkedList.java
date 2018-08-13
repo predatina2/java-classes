@@ -20,51 +20,52 @@ public class MyLinkedList {
 
         boolean findAddPosition = false;
 
-        //  System.out.println("Start find add " + newValue + " ");
+        System.out.println(" +++++ Start adding: " + (int) newItem.getValue() + " +++++ ");
 
         while (!findAddPosition){
+            System.out.println("compare current: " + (int) currentItem.getValue() + " with new value");
             int compare = currentItem.compareTo(newItem);
             if (compare == 0){
-                // System.out.println("values already in list: " + newValue);
+                System.out.println("current value equals new value:");
                 return false;
             } else if (compare > 0){
+                System.out.println("current value is smaller then new value");
+                System.out.println("iterate up the list");
                 if (currentItem.getNextItem() == null){
-                    currentItem.setNextItem(newItem);
-//                    currentItem.setNextItem(newItem);
-//                    newItem.setPreviousItem(currentItem);
+                    currentItem.insertAfter(newItem);
+                    System.out.println("found end of the list. " + (int) newItem.getValue() + " added");
                     findAddPosition = true;
                 } else {
                     compare = currentItem.getNextItem().compareTo(newItem);
+                    System.out.println("compare new value with next value: " + (int) currentItem.getNextItem().getValue());
                     if (compare < 0){
-                        currentItem.setNextItem(newItem);
-//                        newItem.setNextItem(currentItem.getNextItem());
-//                        newItem.getNextItem().setPreviousItem(newItem);
-//                        newItem.setPreviousItem(currentItem);
-//                        newItem.getPreviousItem().setNextItem(newItem);
-                        // System.out.println("add up between" + newValue);
+                        System.out.println("new value is less than next value");
+                        System.out.println("new value is added between " + (int) currentItem.getValue()+ " and "
+                        + (int)currentItem.getNextItem().getValue());
+                        currentItem.insertAfter(newItem);
                         findAddPosition = true;
                     } else {
+                        System.out.println("new value is greater then next value. Setting current value to next value.");
                         currentItem = currentItem.getNextItem();
                     }
                 }
             } else {
+                System.out.println("current value is greater than new value");
                 if (currentItem.getPreviousItem() == null){
-//                    currentItem.setPreviousItem(newItem);
-//                    newItem.setNextItem(currentItem);
-                    currentItem.setPreviousItem(newItem);
-                    // System.out.println("add down last" + newValue);
+                    System.out.println("found end of the list. " + (int) newItem.getValue() + " added");
+                    currentItem.insertBefore(newItem);
                     findAddPosition = true;
                 } else {
                     compare = currentItem.getPreviousItem().compareTo(newItem);
+                    System.out.println("compare new value with previous value: " + (int) currentItem.getPreviousItem().getValue());
                     if (compare > 0){
-                        currentItem.setPreviousItem(newItem);
-//                        newItem.setPreviousItem(currentItem.getPreviousItem());
-//                        newItem.getPreviousItem().setNextItem(newItem);
-//                        newItem.setNextItem(currentItem);
-//                        newItem.getNextItem().setPreviousItem(newItem);
-                        // System.out.println("add down between" + newValue);
+                        System.out.println("new value is greater than previous value");
+                        System.out.println("new value is added between " + (int) currentItem.getValue()+ " and "
+                                + (int)currentItem.getPreviousItem().getValue());
+                        currentItem.insertBefore(newItem);
                         findAddPosition = true;
                     } else {
+                        System.out.println("new value is smaller then previous value. Setting current value to previous value.");
                         currentItem = currentItem.getPreviousItem();
                     }
                 }

@@ -38,6 +38,9 @@ public abstract class MyListItem {
         return true;
     }
 
+    public abstract boolean insertAfter(MyListItem nextItem);
+    public abstract boolean insertBefore(MyListItem nextItem);
+
     public abstract int compareTo(MyListItem listItem);
 
 

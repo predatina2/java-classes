@@ -9,59 +9,59 @@ public class ListItem extends MyListItem {
         super(value);
     }
 
-    @Override
-    public boolean setNextItem(MyListItem newNextItem) {
+
+    public boolean insertAfter(MyListItem newNextItem) {
+//        System.out.println("set next Item: " + newNextItem.getValue());
         if (newNextItem == null) {return false;}
+
         MyListItem oldNextItem = getNextItem();
-        if (oldNextItem != null && oldNextItem.compareTo(newNextItem) != 0) {
+        if (oldNextItem == null) {
+            super.setNextItem(newNextItem);
+            newNextItem.setPreviousItem(this);
+            return true;
+        }
+        if (oldNextItem.compareTo(newNextItem) == 0) {
+            return false;
+        } else {
             oldNextItem.setPreviousItem(newNextItem);
-            super.setPreviousItem(oldNextItem);
-//            super.setNextItem(newNextItem);
+            newNextItem.setNextItem(oldNextItem);
+            newNextItem.setPreviousItem(this);
+            super.setNextItem(newNextItem);
+            return true;
         }
-        super.setNextItem(newNextItem);
 
-        return true;
+
+
+
     }
 
-    @Override
-    public boolean setPreviousItem(MyListItem newPreviousItem) {
+
+    public boolean insertBefore(MyListItem newPreviousItem) {
+//        System.out.println("set Previous item: " + (int) newPreviousItem.getValue());
+
         if (newPreviousItem == null) {return false;}
-        MyListItem oldPreviousItem = getPreviousItem();
-        if (oldPreviousItem != null && oldPreviousItem.compareTo(newPreviousItem) != 0) {
-            oldPreviousItem.setNextItem(newPreviousItem);
-            super.setNextItem(oldPreviousItem);
-//            newPreviousItem.setNextItem(getNextItem());
-//            getNextItem().setPreviousItem(newPreviousItem);
+
+        MyListItem oldPreviousItem = super.getPreviousItem();
+        if (oldPreviousItem == null){
+            super.setPreviousItem(newPreviousItem);
+            newPreviousItem.setNextItem(this);
+            return true;
         }
-        super.setPreviousItem(newPreviousItem);
-//        newPreviousItem.setNextItem(this);
-
-//        newPreviousItem.setPreviousItem(getPreviousItem());
-//        getPreviousItem().setPreviousItem(newPreviousItem);
-//        setNextItem(newPreviousItem);
-        // newItem.setNextItem(currentItem.getNextItem());
-//        newItem.getNextItem().setPreviousItem(newItem);
-//        newItem.setPreviousItem(currentItem);
-//        newItem.getPreviousItem().setNextItem(newItem);
-//
-//        this.previousItem = previousItem;
-        return true;
-    }
-
-    @Override
-    public MyListItem getNextItem() {
-        return super.getNextItem();
-    }
-
-    @Override
-    public MyListItem getPreviousItem() {
-        return super.getPreviousItem();
+        if (oldPreviousItem.compareTo(newPreviousItem) == 0){
+            return false;
+        } else {
+            oldPreviousItem.setNextItem(newPreviousItem);
+            newPreviousItem.setPreviousItem(oldPreviousItem);
+            newPreviousItem.setNextItem(this);
+            super.setPreviousItem(newPreviousItem);
+            return true;
+        }
     }
 
     @Override
     public int compareTo(MyListItem listItem) {
 
-        if ((int) listItem.getValue()== (int) getValue()){
+        if ((int) listItem.getValue() == (int) getValue()){
             return 0;
         } else if ((int) listItem.getValue() > (int) getValue()){
             return 1;
