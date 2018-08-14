@@ -9,6 +9,9 @@ public class GameApp {
 
     public static void main(String[] args) {
 
+        Board myBoard = new Board(8);
+        myBoard.printBoard();
+
         var players = new ArrayList<Player>();
         var monsters = new ArrayList<Monster>();
 

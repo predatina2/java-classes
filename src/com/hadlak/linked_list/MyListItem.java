@@ -2,9 +2,9 @@ package com.hadlak.linked_list;
 
 public abstract class MyListItem {
 
-    private Object value;
-    private MyListItem previousItem;
-    private MyListItem nextItem;
+    protected Object value;
+    protected MyListItem previousItem;
+    protected MyListItem nextItem;
 
     public MyListItem(Object value) {
         this.value = value;
@@ -12,10 +12,6 @@ public abstract class MyListItem {
 
     public Object getValue() {
         return value;
-    }
-
-    public void setValue(Object value) {
-        this.value = value;
     }
 
     public MyListItem getPreviousItem() {
@@ -26,25 +22,22 @@ public abstract class MyListItem {
         return nextItem;
     }
 
-//    public abstract boolean addListItem(MyListItem newItem);
-
-    public boolean setNextItem(MyListItem nextItem){
-        this.nextItem = nextItem;
-        return true;
+    public boolean hasNextItem(){
+        return (nextItem != null) ? true : false;
     }
 
-    public boolean setPreviousItem(MyListItem previousItem){
-        this.previousItem = previousItem;
-        return true;
+    public boolean hasPreviousItem(){
+        return (previousItem != null) ? true : false;
+    }
+
+    public boolean hasValue(){
+        return (value != null) ? true : false;
     }
 
     public abstract boolean insertAfter(MyListItem nextItem);
     public abstract boolean insertBefore(MyListItem nextItem);
-    public abstract boolean removeAfter();
-    public abstract boolean removeBefore();
+    public abstract void removeAfter();
+    public abstract void removeBefore();
 
     public abstract int compareTo(MyListItem listItem);
-
-
-
 }

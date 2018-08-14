@@ -3,13 +3,13 @@ package com.hadlak.linked_list;
 public class MyLinkedList {
 
     private MyListItem currentItem;
-    private MyListItem firstItem; // TODO implementing
-    private MyListItem lastItem; // TODO implementing
+    private MyListItem firstItem;
+    private MyListItem lastItem;
 
     public MyLinkedList() {
     }
 
-    public boolean addListItem(ListItem newItem) {
+    public boolean addListItem(MyLinkedListItem newItem) {
         if (newItem == null) return false;
         if (currentItem == null) {
             currentItem = newItem;
@@ -18,21 +18,22 @@ public class MyLinkedList {
             return true;
         }
 
+        System.out.println(" +++++ Start adding: " + newItem.getValue() + " +++++ ");
+
+        moveToFirst();
         boolean findAddPosition = false;
-
-        System.out.println(" +++++ Start adding: " + (int) newItem.getValue() + " +++++ ");
-
         while (!findAddPosition) {
-            System.out.println("compare current: " + (int) currentItem.getValue() + " with new value");
+//            System.out.println("compare current: " + (int) currentItem.getValue() + " with new value");
             int compare = currentItem.compareTo(newItem);
             if (compare == 0) {
                 System.out.println("current value equals new value:");
                 return false;
-            } else if (compare > 0) {
+            } else if (compare > 0){
                 System.out.println("current value is smaller then new value");
                 System.out.println("iterate up the list");
-                if (currentItem.getNextItem() == null) {
+                if (!currentItem.hasNextItem()) {
                     currentItem.insertAfter(newItem);
+                    lastItem = newItem;
                     System.out.println("found end of the list. " + (int) newItem.getValue() + " added");
                     findAddPosition = true;
                 } else {
@@ -42,6 +43,7 @@ public class MyLinkedList {
                         System.out.println("new value is less than next value");
                         System.out.println("new value is added between " + (int) currentItem.getValue() + " and "
                                 + (int) currentItem.getNextItem().getValue());
+                        currentItem.getNextItem().insertBefore(newItem);
                         currentItem.insertAfter(newItem);
                         findAddPosition = true;
                     } else {
@@ -51,37 +53,24 @@ public class MyLinkedList {
                 }
             } else {
                 System.out.println("current value is greater than new value");
-                if (currentItem.getPreviousItem() == null) {
-                    System.out.println("found end of the list. " + (int) newItem.getValue() + " added");
-                    currentItem.insertBefore(newItem);
-                    findAddPosition = true;
-                } else {
-                    compare = currentItem.getPreviousItem().compareTo(newItem);
-                    System.out.println("compare new value with previous value: " + (int) currentItem.getPreviousItem().getValue());
-                    if (compare > 0) {
-                        System.out.println("new value is greater than previous value");
-                        System.out.println("new value is added between " + (int) currentItem.getValue() + " and "
-                                + (int) currentItem.getPreviousItem().getValue());
-                        currentItem.insertBefore(newItem);
-                        findAddPosition = true;
-                    } else {
-                        System.out.println("new value is smaller then previous value. Setting current value to previous value.");
-                        moveToLeft();
-                    }
-                }
+                System.out.println("found end of the list. " + (int) newItem.getValue() + " added");
+                currentItem.insertBefore(newItem);
+                firstItem = newItem;
+                findAddPosition = true;
             }
         }
 
         return true;
     }
 
+
     public boolean removeListItem(MyListItem itemToRemove) {
         if (itemToRemove == null || currentItem == null) {
             return false;
         }
-        boolean foundItem = false;
-
+//TODO: last wird nicht angepasst
         moveToFirst();
+        boolean foundItem = false;
         while (!foundItem){
             int compare = currentItem.compareTo(itemToRemove);
             if (compare == 0){
@@ -89,12 +78,11 @@ public class MyLinkedList {
                     firstItem = currentItem.getNextItem();
                     currentItem = firstItem;
                     currentItem.removeBefore();
-                    foundItem = true;
                 } else {
                     currentItem = currentItem.getPreviousItem();
-                    currentItem.setNextItem(currentItem.getNextItem().getNextItem());
-                    foundItem = true;
+                    currentItem.insertAfter(currentItem.getNextItem().getNextItem());
                 }
+                foundItem = true;
             } else {
                 if (!moveToRight()) {
                     return false;
@@ -102,39 +90,10 @@ public class MyLinkedList {
             }
         }
         return true;
-
-//        while (!foundItem) {
-//            if (currentItem == null) {
-//                return false;
-//            }
-//            int compare = currentItem.compareTo(itemToRemove);
-//            if (compare == 0) {
-//                if (moveToLeft()) {
-//                    currentItem.removeAfter();
-//                } else if (moveToRight()) {
-//                    currentItem.removeBefore();
-//                } else {
-//                    currentItem.setValue(null);
-//                }
-//                foundItem = true;
-//            } else if (compare > 0) {
-//                if (currentItem.getNextItem().compareTo(itemToRemove) > 0 && !moveToRight()) {
-//                    return false;
-//                }
-//                System.out.println("move to right");
-//            } else {
-//                if (currentItem.getPreviousItem().compareTo(itemToRemove) > 0 && !moveToLeft()) {
-//                    return false;
-//                }
-//                System.out.println("move to left");
-//            }
-//        }
-//
-//        return true;
     }
 
     public boolean moveToLeft() {
-        if (currentItem == null || currentItem.getValue() == null || currentItem.getPreviousItem() == null) {
+        if (currentItem == null || !currentItem.hasValue() || !currentItem.hasPreviousItem()) {
             return false;
         } else {
             currentItem = currentItem.getPreviousItem();
@@ -144,7 +103,7 @@ public class MyLinkedList {
     }
 
     public boolean moveToRight() {
-        if (currentItem == null || currentItem.getValue() == null || currentItem.getNextItem() == null) {
+        if (currentItem == null || !currentItem.hasValue() || !currentItem.hasNextItem()) {
             return false;
         } else {
             currentItem = currentItem.getNextItem();
@@ -154,30 +113,27 @@ public class MyLinkedList {
     }
 
     public void moveToFirst() {
-        while (moveToLeft()) {
-
+        while (currentItem.hasPreviousItem()) {
+            moveToLeft();
         }
-        System.out.println("moved to first: " + currentItem.getValue());
+//        System.out.println("moved to first: " + currentItem.getValue());
     }
 
     public void moveToLast() {
-        while (moveToRight()) {
-
+        while (currentItem.hasNextItem()) {
+            moveToRight();
         }
-        System.out.println("moved to last: " + currentItem.getValue());
+//        System.out.println("moved to last: " + currentItem.getValue());
     }
 
 
     public void printList() {
         if (currentItem == null) return;
-
-        while (currentItem.getPreviousItem() != null) {
-            currentItem = currentItem.getPreviousItem();
-        }
+        moveToFirst();
 
         System.out.print(currentItem.getValue() + " ");
-        while (currentItem.getNextItem() != null) {
-            currentItem = currentItem.getNextItem();
+        while (currentItem.hasNextItem()) {
+            moveToRight();
             System.out.print((int) currentItem.getValue() + " ");
         }
 
