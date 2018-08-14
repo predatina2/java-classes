@@ -12,5 +12,34 @@ public class ListApp {
         System.out.println("+++++++++   print List      ++++++++++++");
          myList.printList();
         System.out.println("\n++++++++++++++++++++++++++++++++++++++++");
+
+        myList.moveToFirst();
+        myList.moveToLast();
+
+        System.out.println("Removing 12312");
+        myList.removeListItem(new ListItem(12312));
+        System.out.println("+++++++++   print List      ++++++++++++");
+        myList.printList();
+        System.out.println("\n++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("Removing 6");
+        myList.removeListItem(new ListItem(6));
+        System.out.println("+++++++++   print List      ++++++++++++");
+        myList.printList();
+        System.out.println("\n++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("Removing 123");
+        myList.removeListItem(new ListItem(123));
+        System.out.println("+++++++++   print List      ++++++++++++");
+        myList.printList();
+        System.out.println("\n++++++++++++++++++++++++++++++++++++++++");
+//        System.out.println("Removing 2");
+//        myList.removeListItem(new ListItem(2));
+//        System.out.println("+++++++++   print List      ++++++++++++");
+//        myList.printList();
+//        System.out.println("\n++++++++++++++++++++++++++++++++++++++++");
+//        System.out.println("Removing 123");
+//        myList.removeListItem(new ListItem(123));
+//        System.out.println("+++++++++   print List      ++++++++++++");
+//        myList.printList();
+//        System.out.println("\n++++++++++++++++++++++++++++++++++++++++");
     }
 }

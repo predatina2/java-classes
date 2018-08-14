@@ -59,6 +59,36 @@ public class ListItem extends MyListItem {
     }
 
     @Override
+    public boolean removeBefore(){ // TODO just removing prevoius!!! checking must be in list class
+        var itemToRemove = getPreviousItem();
+        if (itemToRemove == null) {return false;}
+
+        if (itemToRemove.getPreviousItem() != null) {
+            setPreviousItem(itemToRemove.getPreviousItem());
+            itemToRemove.getPreviousItem().setNextItem(this);
+        } else {
+            setPreviousItem(null);
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean removeAfter() { // TODO just removing next!!! checking must be in List class
+        var itemToRemove = getNextItem();
+        if (itemToRemove == null) {return false;}
+
+        if (itemToRemove.getNextItem() != null){
+            setNextItem(itemToRemove.getNextItem());
+            itemToRemove.getNextItem().setPreviousItem(this);
+        } else {
+            setNextItem(null);
+        }
+
+        return true;
+    }
+
+    @Override
     public int compareTo(MyListItem listItem) {
 
         if ((int) listItem.getValue() == (int) getValue()){
