@@ -1,20 +1,23 @@
 package com.hadlak.linked_list;
 
-public class MyLinkedList {
+public class MyLinkedList implements NodeList {
 
-    private MyListItem currentItem;
-    private MyListItem firstItem;
-    private MyListItem lastItem;
+    private ListItem rootNode;
+    private ListItem firstNode;
+    private ListItem lastNode;
 
     public MyLinkedList() {
     }
 
-    public boolean addListItem(MyLinkedListItem newItem) {
+    @Override
+    public boolean addItem(ListItem newItem) {
+
         if (newItem == null) return false;
-        if (currentItem == null) {
-            currentItem = newItem;
-            firstItem = newItem;
-            lastItem = newItem;
+
+        if (this.rootNode == null) {
+            this.rootNode = newItem;
+            this.firstNode = newItem;
+            this.lastNode = newItem;
             return true;
         }
 
@@ -23,28 +26,28 @@ public class MyLinkedList {
         moveToFirst();
         boolean findAddPosition = false;
         while (!findAddPosition) {
-//            System.out.println("compare current: " + (int) currentItem.getValue() + " with new value");
-            int compare = currentItem.compareTo(newItem);
+//            System.out.println("compare current: " + (int) rootNode.getValue() + " with new value");
+            int compare = rootNode.compareTo(newItem);
             if (compare == 0) {
-                System.out.println("current value equals new value:");
+//                System.out.println("current value equals new value:");
                 return false;
-            } else if (compare > 0){
-                System.out.println("current value is smaller then new value");
-                System.out.println("iterate up the list");
-                if (!currentItem.hasNextItem()) {
-                    currentItem.insertAfter(newItem);
-                    lastItem = newItem;
-                    System.out.println("found end of the list. " + (int) newItem.getValue() + " added");
+            } else if (compare > 0) {
+//                System.out.println("current value is smaller then new value");
+//                System.out.println("iterate up the list");
+                if (!rootNode.hasNextItem()) {
+                    rootNode.setNext(newItem).setPrevious(rootNode);
+                    lastNode = newItem;
+//                    System.out.println("found end of the list. " + (int) newItem.getValue() + " added");
                     findAddPosition = true;
                 } else {
-                    compare = currentItem.getNextItem().compareTo(newItem);
-                    System.out.println("compare new value with next value: " + (int) currentItem.getNextItem().getValue());
+                    compare = rootNode.getNextItem().compareTo(newItem);
+                    System.out.println("compare new value with next value: " + (int) rootNode.getNextItem().getValue());
                     if (compare < 0) {
-                        System.out.println("new value is less than next value");
-                        System.out.println("new value is added between " + (int) currentItem.getValue() + " and "
-                                + (int) currentItem.getNextItem().getValue());
-                        currentItem.getNextItem().insertBefore(newItem);
-                        currentItem.insertAfter(newItem);
+//                        System.out.println("new value is less than next value");
+//                        System.out.println("new value is added between " + (int) rootNode.getValue() + " and "
+//                                + (int) rootNode.getNextItem().getValue());
+                        rootNode.getNextItem().setPrevious(newItem).setNext(rootNode.getNextItem());
+                        rootNode.setNext(newItem).setPrevious(rootNode);
                         findAddPosition = true;
                     } else {
                         System.out.println("new value is greater then next value. Setting current value to next value.");
@@ -54,8 +57,8 @@ public class MyLinkedList {
             } else {
                 System.out.println("current value is greater than new value");
                 System.out.println("found end of the list. " + (int) newItem.getValue() + " added");
-                currentItem.insertBefore(newItem);
-                firstItem = newItem;
+                rootNode.setPrevious(newItem).setNext(rootNode);
+                firstNode = newItem;
                 findAddPosition = true;
             }
         }
@@ -63,24 +66,81 @@ public class MyLinkedList {
         return true;
     }
 
+//    @Override
+//    public boolean addItem(ListItem newItem) {
+//
+//        if (newItem == null) return false;
+//
+//        if (this.rootNode == null) {
+//            this.rootNode = newItem;
+//            this.firstNode = newItem;
+//            this.lastNode = newItem;
+//            return true;
+//        }
+//
+//        System.out.println(" +++++ Start adding: " + newItem.getValue() + " +++++ ");
+//
+//        moveToFirst();
+//        boolean findAddPosition = false;
+//        while (!findAddPosition) {
+////            System.out.println("compare current: " + (int) rootNode.getValue() + " with new value");
+//            int compare = rootNode.compareTo(newItem);
+//            if (compare == 0) {
+//                System.out.println("current value equals new value:");
+//                return false;
+//            } else if (compare > 0) {
+//                System.out.println("current value is smaller then new value");
+//                System.out.println("iterate up the list");
+//                if (!rootNode.hasNextItem()) {
+//                    rootNode.setNext(newItem);
+//                    lastNode = newItem;
+//                    System.out.println("found end of the list. " + (int) newItem.getValue() + " added");
+//                    findAddPosition = true;
+//                } else {
+//                    compare = rootNode.getNextItem().compareTo(newItem);
+//                    System.out.println("compare new value with next value: " + (int) rootNode.getNextItem().getValue());
+//                    if (compare < 0) {
+//                        System.out.println("new value is less than next value");
+//                        System.out.println("new value is added between " + (int) rootNode.getValue() + " and "
+//                                + (int) rootNode.getNextItem().getValue());
+//                        rootNode.getNextItem().setPrevious(newItem);
+//                        rootNode.setNext(newItem);
+//                        findAddPosition = true;
+//                    } else {
+//                        System.out.println("new value is greater then next value. Setting current value to next value.");
+//                        moveToRight();
+//                    }
+//                }
+//            } else {
+//                System.out.println("current value is greater than new value");
+//                System.out.println("found end of the list. " + (int) newItem.getValue() + " added");
+//                rootNode.setPrevious(newItem);
+//                firstNode = newItem;
+//                findAddPosition = true;
+//            }
+//        }
+//
+//        return true;
+//    }
 
-    public boolean removeListItem(MyListItem itemToRemove) {
-        if (itemToRemove == null || currentItem == null) {
+    @Override
+    public boolean removeItem(ListItem itemToRemove) {
+        if (itemToRemove == null || rootNode == null) {
             return false;
         }
 //TODO: last wird nicht angepasst
         moveToFirst();
         boolean foundItem = false;
-        while (!foundItem){
-            int compare = currentItem.compareTo(itemToRemove);
-            if (compare == 0){
-                if (currentItem == firstItem){
-                    firstItem = currentItem.getNextItem();
-                    currentItem = firstItem;
-                    currentItem.removeBefore();
+        while (!foundItem) {
+            int compare = rootNode.compareTo(itemToRemove);
+            if (compare == 0) {
+                if (rootNode == firstNode) {
+                    firstNode = rootNode.getNextItem();
+                    rootNode = firstNode;
+                    rootNode.removePrevious();
                 } else {
-                    currentItem = currentItem.getPreviousItem();
-                    currentItem.insertAfter(currentItem.getNextItem().getNextItem());
+                    rootNode = rootNode.getPreviousItem();
+                    rootNode.setNext(rootNode.getNextItem().getNextItem());
                 }
                 foundItem = true;
             } else {
@@ -93,49 +153,59 @@ public class MyLinkedList {
     }
 
     public boolean moveToLeft() {
-        if (currentItem == null || !currentItem.hasValue() || !currentItem.hasPreviousItem()) {
+        if (rootNode == null || !rootNode.hasValue() || !rootNode.hasPreviousItem()) {
             return false;
         } else {
-            currentItem = currentItem.getPreviousItem();
+            rootNode = rootNode.getPreviousItem();
             return true;
         }
 
     }
 
     public boolean moveToRight() {
-        if (currentItem == null || !currentItem.hasValue() || !currentItem.hasNextItem()) {
+        if (rootNode == null || !rootNode.hasValue() || !rootNode.hasNextItem()) {
             return false;
         } else {
-            currentItem = currentItem.getNextItem();
+            rootNode = rootNode.getNextItem();
             return true;
         }
 
     }
 
     public void moveToFirst() {
-        while (currentItem.hasPreviousItem()) {
+        while (rootNode.hasPreviousItem()) {
             moveToLeft();
         }
-//        System.out.println("moved to first: " + currentItem.getValue());
+//        System.out.println("moved to first: " + rootNode.getValue());
     }
 
     public void moveToLast() {
-        while (currentItem.hasNextItem()) {
+        while (rootNode.hasNextItem()) {
             moveToRight();
         }
-//        System.out.println("moved to last: " + currentItem.getValue());
+//        System.out.println("moved to last: " + rootNode.getValue());
     }
 
 
     public void printList() {
-        if (currentItem == null) return;
+        if (rootNode == null) return;
         moveToFirst();
 
-        System.out.print(currentItem.getValue() + " ");
-        while (currentItem.hasNextItem()) {
+        System.out.print(rootNode.getValue() + " ");
+        while (rootNode.hasNextItem()) {
             moveToRight();
-            System.out.print((int) currentItem.getValue() + " ");
+            System.out.print((int) rootNode.getValue() + " ");
         }
+
+    }
+
+    @Override
+    public ListItem getRoot() {
+        return rootNode;
+    }
+
+    @Override
+    public void traverse(ListItem root) {
 
     }
 }
