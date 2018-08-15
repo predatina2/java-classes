@@ -134,18 +134,26 @@ public class MyLinkedList implements NodeList {
         while (!foundItem) {
             int compare = rootNode.compareTo(itemToRemove);
             if (compare == 0) {
+                // found item to delete
                 if (rootNode == firstNode) {
                     firstNode = rootNode.getNextItem();
                     rootNode = firstNode;
                     rootNode.removePrevious();
-                } else {
+                }
+                else {
+                    if (rootNode == lastNode){
+                        lastNode = rootNode.getPreviousItem();
+                    }
                     rootNode = rootNode.getPreviousItem();
                     rootNode.setNext(rootNode.getNextItem().getNextItem());
                 }
                 foundItem = true;
             } else {
-                if (!moveToRight()) {
+                // move up to find the item or return if you can't find it
+                if (!rootNode.hasNextItem() || rootNode.getNextItem().compareTo(itemToRemove) < 0) {
                     return false;
+                } else {
+                    moveToRight();
                 }
             }
         }
