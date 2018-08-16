@@ -43,5 +43,13 @@ public class ListApp {
         System.out.println("\n++++++++++++++++++++++++++++++++++++++++");
 
 
+        SearchTree searchTree = new SearchTree(new Node(77));
+
+        values = "4 234 5 234 23 53 6 34 5 12 12312 23 4 23 65 8 67 8 234 2 54 545 123";
+        for (String s : values.split(" ")) {
+            searchTree.addItem(new Node(Integer.valueOf(s).intValue()));
+        }
+
+        searchTree.traverse(searchTree.getRoot());
     }
 }
