@@ -37,34 +37,30 @@ public class SearchTree implements NodeList {
 //                System.out.println("current value equals new value:");
                 return false;
             } else if (compare > 0) {
-//                System.out.println("current value is smaller then new value");
-//                System.out.println("iterate up the list");
+                // new item is greater, move right, if possible
                 if (!currentItem.hasNextItem()) {
-                    currentItem.setNext(newItem).setPrevious(currentItem);
+                    // right node does not exist, add new item
+                    currentItem.setNext(newItem);
+//                    currentItem.setNext(newItem).setPrevious(currentItem);
 //                lastNode = newItem;
 //                   System.out.println("found end of the list. " + (int) newItem.getValue() + " added");
                     findAddPosition = true;
                 } else {
-                    compare = currentItem.getNextItem().compareTo(newItem);
-                    System.out.println("compare new value with next value: " + (int) currentItem.getNextItem().getValue());
-                    if (compare < 0) {
-//                        System.out.println("new value is less than next value");
-//                        System.out.println("new value is added between " + (int) rootNode.getValue() + " and "
-//                                + (int) rootNode.getNextItem().getValue());
-                        currentItem.getNextItem().setPrevious(newItem).setNext(currentItem.getNextItem());
-                        currentItem.setNext(newItem).setPrevious(currentItem);
-                        findAddPosition = true;
-                    } else {
-                        System.out.println("new value is greater then next value. Setting current value to next value.");
-                        currentItem = currentItem.getNextItem();
-                    }
+                    // right node exists, go to that node
+                    currentItem = currentItem.getNextItem();
                 }
             } else {
-                System.out.println("current value is greater than new value");
-                System.out.println("found end of the list. " + (int) newItem.getValue() + " added");
-                currentItem.setPrevious(newItem).setNext(currentItem);
-//            firstNode = newItem;
-                findAddPosition = true;
+                // new item is smaller, move left
+
+                if (!currentItem.hasPreviousItem()) {
+                    // left node does not exist, add new item
+                    currentItem.setPrevious(newItem);
+                    findAddPosition = true;
+                } else {
+                    // left node exists, go to that node
+                    currentItem = currentItem.getPreviousItem();
+                }
+
             }
         }
 
@@ -72,17 +68,74 @@ public class SearchTree implements NodeList {
     }
 
     @Override
-    public boolean removeItem(ListItem item) {
+    public boolean removeItem(ListItem itemToRemove) {
+
+        if (itemToRemove != null){
+            System.out.println("Deleting item: " + itemToRemove.getValue());
+        } else {
+            return false;
+        }
+
+        ListItem currentItem = this.rootNode;
+        ListItem parentItem = currentItem;
+
+        while (currentItem != null) {
+            int comparison = (currentItem.compareTo(itemToRemove));
+            if (comparison > 0){
+                parentItem = currentItem;
+                currentItem = currentItem.getNextItem();
+            } else if (comparison < 0){
+                parentItem = currentItem;
+                currentItem = currentItem.getPreviousItem();
+            } else {
+                // found item to remove
+                performRemoval(currentItem, parentItem);
+                return true;
+            }
+        }
+
         return false;
+    }
+
+    public void performRemoval(ListItem itemToRemove, ListItem parentItem){
+        // remove item from the tree
+        if (!itemToRemove.hasNextItem()){
+            // no right tree, so make parent point to left tree (which may be null)
+            if (parentItem.getNextItem() == itemToRemove){
+                // item is right child of its parent
+                parentItem.setNext(itemToRemove.getPreviousItem());
+            } else if (parentItem.getPreviousItem() == itemToRemove){
+                // item is left child of its parent
+                parentItem.setPrevious(itemToRemove.getPreviousItem());
+            } else {
+                // parent must be the item to be removed, which means we are looking at the root of the tree
+                this.rootNode = itemToRemove.getPreviousItem();
+            }
+        } else if (!itemToRemove.hasPreviousItem()){
+            // no left tree, so make parent point to right tree (which may be null)
+            if (parentItem.getNextItem() == itemToRemove){
+                // item is right child of its parent
+                parentItem.setNext(itemToRemove.getNextItem());
+            } else if (parentItem.getPreviousItem() == itemToRemove){
+                // item is left child of its parent
+                parentItem.setPrevious(itemToRemove.getNextItem());
+            } else {
+                // parent must be the item to be removed, which means we are looking at the root of the tree
+                this.rootNode = itemToRemove.getNextItem();
+            }
+        } else {
+            // neither left or right are null, deletion is now complicate
+            // TODO
+        }
     }
 
     @Override
     public void traverse(ListItem root) {
         // recursive method
         if (root != null) {
-            traverse(rootNode.getPreviousItem());
-            System.out.println(rootNode.getValue());
-            traverse(rootNode.getNextItem());
+            traverse(root.getPreviousItem());
+            System.out.println(root.getValue());
+            traverse(root.getNextItem());
         }
     }
 }

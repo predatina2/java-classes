@@ -10,7 +10,7 @@ public class ListApp {
             myList.addItem(new Node(Integer.valueOf(s).intValue()));
         }
         System.out.println("+++++++++   print List      ++++++++++++");
-         myList.printList();
+        myList.printList();
         System.out.println("\n++++++++++++++++++++++++++++++++++++++++");
 
         myList.moveToFirst();
@@ -44,12 +44,21 @@ public class ListApp {
 
 
         SearchTree searchTree = new SearchTree(new Node(77));
+        searchTree.traverse(searchTree.getRoot());
 
-        values = "4 5 23 53";
+        values = "4 5 23 53 21 33 11 -4";
         for (String s : values.split(" ")) {
             searchTree.addItem(new Node(Integer.valueOf(s).intValue()));
+            System.out.println("root: " + searchTree.getRoot().getValue());
+            if (searchTree.getRoot().hasNextItem()) {
+                System.out.println("next " + searchTree.getRoot().getNextItem().getValue());
+            }
+            if (searchTree.getRoot().hasPreviousItem()) {
+                System.out.println("previous: " + searchTree.getRoot().getPreviousItem().getValue());
+            }
         }
 
+        System.out.println("traverse Test");
         searchTree.traverse(searchTree.getRoot());
     }
 }
