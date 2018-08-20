@@ -125,7 +125,22 @@ public class SearchTree implements NodeList {
             }
         } else {
             // neither left or right are null, deletion is now complicate
-            // TODO
+            ListItem current = itemToRemove.getNextItem();
+            ListItem leftMostParent = itemToRemove;
+            while (current.hasPreviousItem()){
+                leftMostParent = current;
+                current = current.getPreviousItem();
+            }
+            // now put the smallest value in our node to be deleted
+            itemToRemove.setValue(current.getValue());
+            // and delete the smallest
+            if (leftMostParent == itemToRemove) {
+                // there was not leftmost node, so current points to the smallest
+                // node (the one that must not be deleted)
+                itemToRemove.setNext(current.getNextItem());
+            } else {
+                leftMostParent.setPrevious(current.getNextItem());
+            }
         }
     }
 

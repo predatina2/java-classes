@@ -60,5 +60,8 @@ public class ListApp {
 
         System.out.println("traverse Test");
         searchTree.traverse(searchTree.getRoot());
+        searchTree.removeItem(new Node(23));
+        searchTree.traverse(searchTree.getRoot());
+
     }
 }
