@@ -45,12 +45,28 @@ public final class Utilities {
         for (int i=0; i < string.length - 1; i++){
             if (string[i] != string[i+1]){
                 sb.append(string[i]);
-                if (i + 1 == string.length - 1){
-                    sb.append(string[i+1]);
-                }
             }
         }
+
+        // add the final character which is always save
+        sb.append(string[string.length-1]);
+
+
         return sb.toString();
+    }
+
+    // perform a conversion based on some internal
+    // business rule
+    public static int converter(int a, int b){
+        return (a/b) + (a * 30) -2;
+    }
+
+    public static String nullIfOddLength(String source){
+        if (source.length() % 2 == 0) {
+            return source;
+        }
+
+        return null;
     }
 
     public static void printNPerfectNumbers(int n){
