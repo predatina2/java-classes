@@ -1,4 +1,4 @@
-package com.example.hadlak;
+package com.example.hadlak.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,6 +7,51 @@ import java.util.Scanner;
 public final class Utilities {
 
     private static Scanner scanner = new Scanner(System.in);
+
+    // Returns a char array containing every nth char. When
+    // sourceArray.length < n, returns sourceArray
+    public static char[] everyNthChar(char[] sourceArray, int n){
+        if (sourceArray == null || n > sourceArray.length){
+            return sourceArray;
+        }
+
+        char[] nthChars = Arrays.copyOf(sourceArray, sourceArray.length);
+        int returnedLength = 0;
+        for (int i = n-1; i < sourceArray.length; i+=n){
+            nthChars[returnedLength] = sourceArray[i];
+            returnedLength++;
+        }
+        return Arrays.copyOf(nthChars, returnedLength);
+
+    }
+
+    // Remove pairs of the same character that are next
+    // to each other, by removing one occurrence of the character.
+    // "ABBCDEEF" -> "ABCDEF"
+    // "ABCBDEEF" -> "ABCBDEF" (the two B's aren't next to each other,
+    // so they aren't removed.
+    public static String removePairs(String source){
+        if (source == null){
+            return source;
+        };
+        // if length is less than 2 there won't be any pairs
+        if (source.length() < 2){
+            return source;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        char[] string = source.toCharArray();
+
+        for (int i=0; i < string.length - 1; i++){
+            if (string[i] != string[i+1]){
+                sb.append(string[i]);
+                if (i + 1 == string.length - 1){
+                    sb.append(string[i+1]);
+                }
+            }
+        }
+        return sb.toString();
+    }
 
     public static void printNPerfectNumbers(int n){
         System.out.println("Print the first " + n + " perfect numbers");
@@ -180,17 +225,19 @@ public final class Utilities {
         }
     }
 
-    public static void printArray(int[] array) {
+    public static void printArray(Object[] array) {
+        System.out.println(array.getClass());
+//        switch(array.getClass())
         for (int i = 0; i < array.length; i++) {
             System.out.println(array[i]);
         }
     }
 
-    public static void printArray(double[] array) {
-        for (int i = 0; i < array.length; i++) {
-            System.out.println(array[i]);
-        }
-    }
+//    public static void printArray(double[] array) {
+//        for (int i = 0; i < array.length; i++) {
+//            System.out.println(array[i]);
+//        }
+//    }
 
     public static double getAverage(int[] array) {
         int sum = 0;

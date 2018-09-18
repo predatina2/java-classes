@@ -3,7 +3,7 @@ package com.example.hadlak.game;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.hadlak.Utilities.readValues;
+import static com.example.hadlak.util.Utilities.readValues;
 
 public class GameApp {
 

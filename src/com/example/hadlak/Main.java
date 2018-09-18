@@ -1,6 +1,9 @@
 package com.example.hadlak;
 
+import com.example.hadlak.util.Utilities;
 import com.example.hadlak.vehicle.Vehicle;
+
+import java.util.Arrays;
 
 
 public class Main {
@@ -11,11 +14,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        System.out.println(Utilities.isPerfectNumber(6));
-        System.out.println(Utilities.isPerfectNumber(28));
-        System.out.println(Utilities.isPerfectNumber(5));
-        System.out.println(Utilities.isPerfectNumber(-1));
-        Utilities.printNPerfectNumbers(5);
+        System.out.println(Arrays.toString(Utilities.everyNthChar(new char[] {'a', 'b', 'c', 'd', 'e'}, 5)));
+        System.out.println(Utilities.removePairs("Halllloo"));
+
+
+
     }
 
 
