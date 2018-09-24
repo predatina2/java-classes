@@ -58,6 +58,11 @@ public final class Utilities {
     // perform a conversion based on some internal
     // business rule
     public static int converter(int a, int b){
+
+        if (b == 0){
+            throw new ArithmeticException("devide by 0");
+        }
+
         return (a/b) + (a * 30) -2;
     }
 

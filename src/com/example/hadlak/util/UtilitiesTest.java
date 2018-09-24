@@ -1,9 +1,15 @@
 package com.example.hadlak.util;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class UtilitiesTest {
+
+    @Before
+    public void setUp() throws Exception {
+
+    }
 
     @org.junit.Test
     public void everyNthChar() {
@@ -29,7 +35,14 @@ public class UtilitiesTest {
 
     @Test
     public void converter() {
+
         Assert.assertEquals(300, Utilities.converter(10, 5));
+    }
+
+    @Test (expected = ArithmeticException.class)
+    public void converter_arithmeticException() {
+
+        Utilities.converter(10,0);
     }
 
     @Test
